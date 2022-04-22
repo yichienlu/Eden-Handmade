@@ -1,0 +1,39 @@
+.home-product {
+  &-box {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    transition: all .5s;
+
+    h3 {
+      transition: .3s;
+      color: darken($primary, 15%);
+      opacity: 1;
+    }
+
+    &:hover {
+      .home-product-bg {
+        filter: blur(0.1px);
+        transform: scale(1.2);
+      }
+      h3 {
+        opacity: 0;
+      }
+    }
+  }
+  &-bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    filter: blur(3px);
+    background-size: cover;
+    background-position: center;
+    transition: .5s;
+  }
+}
