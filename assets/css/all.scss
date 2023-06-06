@@ -1,10 +1,10 @@
 @import "bootstrap/scss/functions";
-// @import "./helpers/variables";
+@import "./helpers/variables";
 
-@import "bootstrap/scss/navbar";
+// @import "bootstrap/scss/navbar";
 @import "bootstrap/scss/bootstrap";
 
-// @import "./components/checkoutStep";
+@import "./components/checkoutSteps";
 // @import "./components/home-product-animation";
 @import "./components/style";
 

@@ -8,6 +8,7 @@
 <template>
   <div>
     Page: foo
+    <div style="height: 2000px"></div>
   </div>
 </template>
 

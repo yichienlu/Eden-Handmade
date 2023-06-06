@@ -2,6 +2,7 @@
   <div>
     <FrontNavbar />
     <slot />
+    <FrontFooter />
   </div>
 </template>
 <style lang="scss">
