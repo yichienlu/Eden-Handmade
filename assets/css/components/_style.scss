@@ -1,0 +1,103 @@
+.img-cover {
+  background-position: center;
+  background-size: cover;
+}
+.dancing {
+  font-family: 'Dancing Script', cursive;
+}
+
+// favorite button
+.favoriteBtn .bi-heart{
+  color: $primary
+}
+.favoriteBtn:hover .bi-heart {
+  color: $secondary;
+}
+.favoriteBtn .bi-heart-fill{
+  color: $danger
+}
+.favoriteBtn:hover .bi-heart-fill {
+  color: $secondary;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+// standard button
+.standardBtn {
+  color: white;
+  background-color: $primary;
+}
+.standardBtn:hover {
+  color: white;
+  background-color: $secondary;
+}
+
+// home
+// header swiper
+.swiper-custom {
+  --swiper-navigation-color: #FFFFFF
+}
+// header link
+.home-header-link {
+  background-color: rgba($white,0.8);
+    &:hover{
+      background-color: rgba($white,0.9);
+  }
+}
+// roll-to button
+.rollToBtn{
+  transition-duration: .3s;
+  transform: none;
+  a {
+    transition-duration: .3s;
+    color: $white;
+  }
+
+  &:hover {
+    transform: translateY(10px);
+    a {
+      transform: translateY(10px);
+    }
+  }
+}
+
+// product card 
+.product-card img {
+  background-size: 100%;
+}
+.product-card:hover img {
+  background-size: 120%;
+}
+.product-more {
+  opacity: 0;
+  transition-duration: .3s;
+}
+.product-card:hover .product-more{
+  opacity: 1
+}
+
+// product info-tab
+.info-tab {
+  width: 33%;
+
+  button {
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 8px solid $white;
+  &:hover {
+    border-bottom: 8px solid $light;
+
+  }
+  }
+  .active{
+    border-bottom: 8px solid $secondary;
+    font-weight: bold;
+  }
+}
+
+.navBtn.active{
+  font-weight: bold;
+}

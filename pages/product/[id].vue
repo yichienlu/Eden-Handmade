@@ -1,5 +1,5 @@
 <script setup>
-
+const { id } = useRoute().params
 
 
 
@@ -7,7 +7,7 @@
 
 <template>
   <div>
-    Page: foo
+    <h1>商品 {{ id }}</h1>
   </div>
 </template>
 
