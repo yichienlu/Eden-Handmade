@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     head:{
       script:[
         {
-          src: "bootstrap/popper.min.js",
+          src: "popper/popper.min.js",
           crossorigin: "anonymous"
         }
       ]
