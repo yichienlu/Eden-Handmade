@@ -1,27 +1,28 @@
 <script setup>
 const config = useRuntimeConfig();
-const products = [];
-let isLoading = false;
+let products = ref([]);
+let isLoading = ref(false);
 
 const getProducts = function(page = 1, selectedCategory = ''){
-  isLoading = true;
+  isLoading.value = true;
 
 }
 
-const { data } = await useAsyncData("ProductsList", () =>
+const { data, error } = await useAsyncData("products", () =>
   $fetch(`${config.public.URL}/api/${config.public.PATH}/products/`)
-);
-
+)
+// .then((res) => products.value = res.data.products);
+products.value = data
 
 onMounted(()=>{
-  console.log(config.public.URL, config.public.PATH)
+  // console.log(config.public.URL, config.public.PATH)
 
 })
 
 </script>
 
 <template>
-  {{ data }}
+  {{ products }}
   <!-- <Loading-component :active="isLoading"></Loading-component>
   <div class="img-cover position-relative" style="height: 25vh; background-image:url('/images/products.png');">
     <h1 class="position-absolute top-100 start-50 translate-middle fw-bolder fst-italic dancing" style="font-size: 4rem">Products</h1>
