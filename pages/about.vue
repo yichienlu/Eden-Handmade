@@ -15,7 +15,7 @@
           </div>
           <div class="row row-cols-1 row-cols-md-3 my-5" style="align-items: stretch;">
             <div class="col p-2">
-              <div class="p-3 img-cover position-relative" style="background-image:url('https://images.unsplash.com/photo-1605264964528-06403738d6dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80');">
+              <div class="p-3 img-cover position-relative" style="background-image:url('/images/about-01.png');">
               <div class="position-absolute top-0 bottom-0 start-0 end-0" style="background-color: rgba(255,255,255,0.7)"></div>
               <h2 class="dancing position-relative">Warmth</h2>
               <h3 class="text-secondary fw-bold position-relative">
@@ -27,7 +27,7 @@
               </div>
             </div>
             <div class="col p-2">
-              <div class="p-3 img-cover position-relative" style="background-image:url('https://images.unsplash.com/photo-1536882240095-0379873feb4e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80');">
+              <div class="p-3 img-cover position-relative" style="background-image:url('/images/about-02.png');">
                 <div class="position-absolute top-0 bottom-0 start-0 end-0" style="background-color: rgba(255,255,255,0.7)"></div>
                 <h2 class="dancing position-relative">Natural</h2>
                 <h3 class="text-secondary fw-bold position-relative">
@@ -39,7 +39,7 @@
               </div>
             </div>
             <div class="col p-2">
-              <div class="p-3 img-cover position-relative" style="background-image:url('https://images.unsplash.com/photo-1590541576391-dfc42314a7ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');">
+              <div class="p-3 img-cover position-relative" style="background-image:url('/images/about-03.png');">
               <div class="position-absolute top-0 bottom-0 start-0 end-0" style="background-color: rgba(255,255,255,0.7)"></div>
               <h2 class="dancing position-relative">Organic</h2>
               <h3 class="text-secondary fw-bold position-relative">

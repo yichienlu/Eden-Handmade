@@ -49,11 +49,11 @@
             <h1 class="dancing fw-bold text-secondary mb-5">THANK YOU</h1>
             <p class="mb-4">感謝您選購伊登手工皂，<br>
               祝您擁有美好的一天！</p>
-            <nuxtLink to="/products">
+            <nuxtLink to="/product">
               <button type="button" class="btn standardBtn">繼續購物</button>
             </nuxtLink>
           </div>
-          <div class="col img-cover" style="background-image: url('https://images.unsplash.com/photo-1605264549526-19ee0a3eed5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1080&q=80')"></div>
+          <div class="col img-cover" style="background-image: url('/images/checkout-success.png')"></div>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-around">
-      <div class="col-md-4 border img-cover" style="background-image:url('https://images.unsplash.com/photo-1618840392854-0adfa1a86798?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')">
+      <div class="col-md-4 border img-cover" style="background-image:url('/images/info-01.png')">
         <div class="d-block d-lg-none" style="height: 200px"></div>
       </div>
       <div class="col-md-8 col-lg-6 my-4 my-lg-5">
