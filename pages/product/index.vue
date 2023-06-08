@@ -1,6 +1,7 @@
 <script setup>
 const config = useRuntimeConfig();
 let products = ref([]);
+let pagination = ref({});
 let isLoading = ref(false);
 
 const getProducts = function(page = 1, selectedCategory = ''){
@@ -8,11 +9,13 @@ const getProducts = function(page = 1, selectedCategory = ''){
 
 }
 
-const { data, error } = await useAsyncData("products", () =>
-  $fetch(`${config.public.URL}/api/${config.public.PATH}/products/`)
-)
-// .then((res) => products.value = res.data.products);
-products.value = data
+const {data} = await useFetch('https://api.nuxtjs.dev/mountains')
+
+await useFetch(`${config.public.URL}/api/${config.public.PATH}/products/`).then((res)=>{
+  products.value = res.data
+})
+
+
 
 onMounted(()=>{
   // console.log(config.public.URL, config.public.PATH)
@@ -22,7 +25,15 @@ onMounted(()=>{
 </script>
 
 <template>
-  {{ products }}
+  <div style="background-color: #FFA;">
+    {{ data }}
+  {{ data[0].title }}
+  </div>
+  <div>
+    {{ products }}
+    {{ products.products }}
+
+  </div>
   <!-- <Loading-component :active="isLoading"></Loading-component>
   <div class="img-cover position-relative" style="height: 25vh; background-image:url('/images/products.png');">
     <h1 class="position-absolute top-100 start-50 translate-middle fw-bolder fst-italic dancing" style="font-size: 4rem">Products</h1>
