@@ -1,6 +1,6 @@
 <script setup>
-import popper from 'popper.js'
-// import bootstrap from 'bootstrap'
+  import 'popper.js'
+  // import 'bootstrap/dist/js/bootstrap.min.js'
 </script>
 <template>
   <div>

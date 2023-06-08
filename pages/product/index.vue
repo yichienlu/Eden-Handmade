@@ -25,10 +25,11 @@ onMounted(()=>{
 </script>
 
 <template>
-  <div style="background-color: #FFA;">
+  <!-- <div style="background-color: #FFA;">
     {{ data }}
   {{ data[0].title }}
-  </div>
+  </div> -->
+
   <div>
     {{ products }}
     {{ products.products }}

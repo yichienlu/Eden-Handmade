@@ -10,11 +10,11 @@ export default defineNuxtConfig({
     head:{
       script:[
         // {
-        //   src: "popper.js/popper.min.js",
+        //   src: "popper.js/dist/popper.min.js",
         //   crossorigin: "anonymous"
         // },
         // {
-        //   src: "bootstrap/js/bootstrap.min.js",
+        //   src: "bootstrap/bootstrap.js",
         //   crossorigin: "anonymous"
         // },
         // {
