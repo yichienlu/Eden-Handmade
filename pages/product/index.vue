@@ -9,10 +9,11 @@ const getProducts = function(page = 1, selectedCategory = ''){
 
 }
 
-const {data} = await useFetch('https://api.nuxtjs.dev/mountains')
+// const { data } = await useFetch('https://api.nuxtjs.dev/mountains')
 
 await useFetch(`${config.public.URL}/api/${config.public.PATH}/products/`).then((res)=>{
-  products.value = res.data
+  products.value = res.data._rawValue.products
+  // console.log(res.data._rawValue)
 })
 
 
@@ -25,17 +26,7 @@ onMounted(()=>{
 </script>
 
 <template>
-  <!-- <div style="background-color: #FFA;">
-    {{ data }}
-  {{ data[0].title }}
-  </div> -->
-
-  <div>
-    {{ products }}
-    {{ products.products }}
-
-  </div>
-  <!-- <Loading-component :active="isLoading"></Loading-component>
+  <!-- <Loading-component :active="isLoading"></Loading-component> -->
   <div class="img-cover position-relative" style="height: 25vh; background-image:url('/images/products.png');">
     <h1 class="position-absolute top-100 start-50 translate-middle fw-bolder fst-italic dancing" style="font-size: 4rem">Products</h1>
   </div>
@@ -69,10 +60,10 @@ onMounted(()=>{
                   <i class="fs-2 bi bi-search position-absolute top-50 start-50 translate-middle text-secondary"></i>
                   <nuxtLink :to="`/product/${product.id}`" class="stretched-link"></nuxtLink>
                 </div>
-              <button type="button" class="btn position-absolute top-0 end-0 border-0 favoriteBtn" @click="toggleFavorite(product.id)" style="z-index: 980">
+              <!-- <button type="button" class="btn position-absolute top-0 end-0 border-0 favoriteBtn" @click="toggleFavorite(product.id)" style="z-index: 980">
                 <i v-if="this.favorite.includes(product.id)" class="bi bi-heart-fill fs-3"></i>
                 <i v-else class="bi bi-heart fs-3"></i>
-              </button>
+              </button> -->
               </div>
               <div class="card-body p-0">
                 <div class="fw-bold mt-2">{{ product.title }}</div>
@@ -95,10 +86,10 @@ onMounted(()=>{
             </div>
           </div>
         </div>
-        <pagination-component :pages="pagination" @get-items="getProducts"></pagination-component>
+        <!-- <pagination-component :pages="pagination" @get-items="getProducts"></pagination-component> -->
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <style scoped></style>
