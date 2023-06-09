@@ -82,20 +82,15 @@ input::-webkit-inner-spin-button {
 // product info-tab
 .info-tab {
   width: 33%;
-
   button {
-
     border: 0;
     border-bottom: 8px solid $white;
   &:hover {
     border-bottom: 8px solid $light;
-
   }
   }
-
   .active{
     border: 0px solid #FFF;
-
     border-bottom: 8px solid $secondary !important;
     font-weight: bold;
   }
