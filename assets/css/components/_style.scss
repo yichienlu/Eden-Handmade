@@ -84,16 +84,19 @@ input::-webkit-inner-spin-button {
   width: 33%;
 
   button {
-    border-left: 0;
-    border-right: 0;
+
+    border: 0;
     border-bottom: 8px solid $white;
   &:hover {
     border-bottom: 8px solid $light;
 
   }
   }
+
   .active{
-    border-bottom: 8px solid $secondary;
+    border: 0px solid #FFF;
+
+    border-bottom: 8px solid $secondary !important;
     font-weight: bold;
   }
 }
