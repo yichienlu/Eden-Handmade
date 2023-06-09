@@ -1,26 +1,51 @@
 <script setup>
 const config = useRuntimeConfig();
 let products = ref([]);
+let categories = ref([])
+let selectedCategory = ref('')
 let pagination = ref({});
+let currentPage = ref(1)
 let isLoading = ref(false);
+let favorite = ref([])
 
-const getProducts = function(page = 1, selectedCategory = ''){
+// 取得商品資料 & 頁數資料
+const getProducts = async (page=1, category='') => {
   isLoading.value = true;
+  const response = await fetch(`${config.public.URL}/api/${config.public.PATH}/products?page=${page}&category=${category}`)
+  .then((res)=>res.json())
+  .catch((err)=>err.json())
+
+  if(response.success){
+    products.value = response.products
+    pagination.value = response.pagination
+    selectedCategory.value = category
+    currentPage.value = page
+  } else {
+    console.log(response.message)
+  }
+  isLoading.value = false;
 
 }
 
-// const { data } = await useFetch('https://api.nuxtjs.dev/mountains')
+// 取得所有商品類別
+const getCategories = async () => {
+  const response = await fetch(`${config.public.URL}/api/${config.public.PATH}/products/all`)
+  .then((res)=>res.json())
+  .catch((err)=>err.json())
 
-await useFetch(`${config.public.URL}/api/${config.public.PATH}/products/`).then((res)=>{
-  products.value = res.data._rawValue.products
-  // console.log(res.data._rawValue)
-})
-
+  if(response.success){
+    categories.value = Array.from(new Set(response.products.map(i => i.category))).reverse()
+  } else {
+    console.log(response.message)
+  }
+  
+}
 
 
 onMounted(()=>{
-  // console.log(config.public.URL, config.public.PATH)
-
+  getCategories()
+  getProducts()
+  favorite.value = JSON.parse(localStorage.getItem('favorite'))
 })
 
 </script>
