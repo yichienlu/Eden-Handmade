@@ -1,10 +1,29 @@
 <script setup>
+const config = useRuntimeConfig();
+
 const { id } = useRoute().params
 
-const products = []
+const product = ref({})
+let isLoading = ref(false);
 
 
+const getProduct = async (id) => {
+  isLoading.value = true;
+  const response = await fetch(`${config.public.URL}/api/${config.public.PATH}/product/${id}`)
+  .then((res)=>res.json())
+  .catch((err)=>err.json())
 
+  if(response.success){
+    product.value = response.product
+  } else {
+    console.log(response.message)
+  }
+  isLoading.value = false;
+
+}
+onMounted(()=>{
+  getProduct(id)
+})
 </script>
 
 <template>
