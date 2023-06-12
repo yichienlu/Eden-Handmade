@@ -45,7 +45,8 @@ const getCategories = async () => {
 onMounted(()=>{
   getCategories()
   getProducts()
-  favorite.value = JSON.parse(localStorage.getItem('favorite'))
+  favorite.value = JSON.parse(localStorage.getItem('favorite')) || []
+  console.log(favorite.value)
 })
 
 </script>
@@ -85,10 +86,10 @@ onMounted(()=>{
                   <i class="fs-2 bi bi-search position-absolute top-50 start-50 translate-middle text-secondary"></i>
                   <nuxtLink :to="`/product/${product.id}`" class="stretched-link"></nuxtLink>
                 </div>
-              <!-- <button type="button" class="btn position-absolute top-0 end-0 border-0 favoriteBtn" @click="toggleFavorite(product.id)" style="z-index: 980">
-                <i v-if="this.favorite.includes(product.id)" class="bi bi-heart-fill fs-3"></i>
+              <button type="button" class="btn position-absolute top-0 end-0 border-0 favoriteBtn" @click="toggleFavorite(product.id)" style="z-index: 980">
+                <i v-if="favorite.includes(product.id)" class="bi bi-heart-fill fs-3"></i>
                 <i v-else class="bi bi-heart fs-3"></i>
-              </button> -->
+              </button>
               </div>
               <div class="card-body p-0">
                 <div class="fw-bold mt-2">{{ product.title }}</div>
