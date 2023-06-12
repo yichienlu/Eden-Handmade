@@ -6,7 +6,7 @@ let selectedCategory = ref('')
 let pagination = ref({});
 let currentPage = ref(1)
 let isLoading = ref(false);
-let favorite = ref([])
+
 
 // 取得商品資料 & 頁數資料
 const getProducts = async (page=1, category='') => {
@@ -45,9 +45,18 @@ const getCategories = async () => {
 onMounted(()=>{
   getCategories()
   getProducts()
-  favorite.value = JSON.parse(localStorage.getItem('favorite')) || []
-  console.log(favorite.value)
 })
+
+
+
+// favorites
+let favorite = ref([])
+onMounted(()=>{
+  favorite.value = JSON.parse(localStorage.getItem('favorite')) || []
+})
+const toggleFavorite = function(id){
+  console.log(id)
+}
 
 </script>
 
