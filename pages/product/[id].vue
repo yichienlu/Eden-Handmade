@@ -1,12 +1,11 @@
 <script setup>
 const config = useRuntimeConfig();
-
 const { id } = useRoute().params
+const favoriteStore = useFavoriteStore()
 
+// product info
 const product = ref({})
 let isLoading = ref(false);
-
-
 const getProduct = async (id) => {
   isLoading.value = true;
   const response = await fetch(`${config.public.URL}/api/${config.public.PATH}/product/${id}`)
@@ -25,10 +24,15 @@ onMounted(()=>{
   getProduct(id)
 })
 
+// change number
+let qty = ref(1)
+const changeNumber = (num) => {
+  if (qty.value + num === 0) {
+    return
+  }
+  qty.value += num
+}
 
-
-// favorite
-const favoriteStore = useFavoriteStore()
 
 </script>
 
@@ -153,11 +157,6 @@ const favoriteStore = useFavoriteStore()
         </template>
       </div>
     </div>
-  </div>
-
-  
-  <div>
-    <h1>商品 {{ id }}</h1>
   </div>
   
 </template>
