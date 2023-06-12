@@ -5,6 +5,7 @@ export const useFavoriteStore = defineStore("favorite", () => {
   const getFavorite = () => {
     favorite.value = JSON.parse(localStorage.getItem('favorite')) || []
   };
+
   const toggleFavorite = (id)=> {
     const favoriteIndex = favorite.value.findIndex(item => item === id)
     if (favoriteIndex === -1) {
@@ -16,5 +17,14 @@ export const useFavoriteStore = defineStore("favorite", () => {
     getFavorite()
   }
 
-  return { favorite, getFavorite, toggleFavorite };
+  const findFavorite = (id) => {
+    const favoriteIndex = favorite.value.findIndex(item => item === id)
+    if (favoriteIndex === -1) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  return { favorite, getFavorite, toggleFavorite, findFavorite };
 });

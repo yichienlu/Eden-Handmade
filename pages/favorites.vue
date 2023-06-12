@@ -6,10 +6,12 @@ onMounted(()=>{
   favoriteStore.getFavorite()
 })
 
-let allProducts = ref([])
 
-  const getAllProducts = async () => {
-  // isLoading.value = true;
+
+let allProducts = ref([])
+let isLoading = ref(false)
+const getAllProducts = async () => {
+  isLoading.value = true;
   const response = await fetch(`${config.public.URL}/api/${config.public.PATH}/products/all`)
   .then((res)=>res.json())
   .catch((err)=>err.json())
@@ -20,9 +22,7 @@ let allProducts = ref([])
   } else {
     console.log(response.message)
   }
-  // isLoading.value = false;
-
-
+  isLoading.value = false;
 }
 
 onMounted(()=>{

@@ -24,10 +24,16 @@ const getProduct = async (id) => {
 onMounted(()=>{
   getProduct(id)
 })
+
+
+
+// favorite
+const favoriteStore = useFavoriteStore()
+
 </script>
 
 <template>
-   <Loading-component :active="isLoading"></Loading-component>
+   <!-- <Loading-component :active="isLoading"></Loading-component> -->
   <div class="container py-5">
     <div class="row flex-sm-row-reverse">
       <div class="col-sm-6 position-relative">
@@ -57,7 +63,10 @@ onMounted(()=>{
               <button class="btn standardBtn w-100" type="button" @click="addToCart(product.id, qty)">加到購物車</button>
             </div>
             <div class="col-md-6 mb-3">
-              <button class="btn btn-outline-primary w-100" type="button" @click="addToCart(product.id, qty)">加入收藏</button>
+              <button class="btn btn-outline-primary w-100" type="button" @click="favoriteStore.toggleFavorite(product.id)" >
+                <span v-if="favoriteStore.findFavorite(product.id)">取消收藏</span>
+                <span v-else>加入收藏</span>
+              </button>
             </div>
           </div>
           <ul class="nav justify-content-between border" id="myTab" role="tablist">
