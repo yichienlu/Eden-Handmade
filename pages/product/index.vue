@@ -111,7 +111,7 @@ onMounted(()=>{
             </div>
           </div>
         </div>
-        <!-- <pagination-component :pages="pagination" @get-items="getProducts"></pagination-component> -->
+        <pagination-component :pages="pagination" @get-items="getProducts"></pagination-component>
       </div>
     </div>
   </div>

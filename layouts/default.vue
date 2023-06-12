@@ -1,5 +1,6 @@
 <script setup>
   import 'popper.js'
+  import 'bootstrap-icons/font/bootstrap-icons.css'
 </script>
 <template>
   <div>
