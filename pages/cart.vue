@@ -2,9 +2,13 @@
 // const config = useRuntimeConfig();
 
 const cartStore = useCartStore()
+
+
 onMounted(() => {
   cartStore.getCart()
+
 })
+
 
 
 
@@ -57,7 +61,7 @@ onMounted(() => {
         <div class="row">
           <div class="col-lg-8 ">
             <div class="d-md-none">
-              <div v-for="item in cartStore.cart" :key="item.id" class="d-flex py-2 mb-4 border-bottom position-relative">
+              <div v-for="item in cartStore.cart.carts" :key="item.id" class="d-flex py-2 mb-4 border-bottom position-relative">
                 <a href="#" class="position-absolute end-0" @click.prevent="cartStore.removeCartItem(item.id)" >
                   <i class="bi bi-x fs-2"></i>
                 </a>
@@ -109,7 +113,7 @@ onMounted(() => {
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in cartStore.cart" :key="item.id">
+                <tr v-for="item in cartStore.cart.carts" :key="item.id">
                   <td>
                     <button type="button" class="btn btn-sm" @click="removeCartItem(item.id)" >
                       <i class="bi bi-trash3-fill text-danger fs-5"></i>
@@ -175,45 +179,43 @@ onMounted(() => {
               </button>
             </div>
           </div>
-          <!-- <div class="col-lg-4 mt-4 mt-lg-0">
+          <div class="col-lg-4 mt-4 mt-lg-0">
             <div class="text-end shadow p-3 p-lg-5">
               <p class="d-flex justify-content-between">
                 <span>總計：</span>
-                <span>{{ $filters.currency(cartData.total) }} 元</span>
+                <span>{{ cartStore.cart.total }} 元</span>
               </p>
-              <p v-if="cartData.carts[0].coupon" class="text-danger d-flex justify-content-between">
+              <p v-if="cartStore.cart.carts[0].coupon" class="text-danger d-flex justify-content-between">
                 <span>優惠券折扣：</span>
-                <span>- {{ cartData.total - Math.floor(cartData.final_total) }} 元</span>
+                <span>- {{ cartData.total - Math.floor(cartStore.final_total) }} 元</span>
               </p>
-              <p v-if="cartData.carts[0].coupon" class="text-end">
+              <p v-if="cartStore.cart.carts[0].coupon" class="text-end">
                 <small class="text-danger">
-                  (已套用「{{ cartData.carts[0].coupon.title }}」優惠券：{{ cartData.carts[0].coupon.code }})
+                  (已套用「{{ cartStore.cart.carts[0].coupon.title }}」優惠券：{{ cartStore.cart.carts[0].coupon.code }})
                   </small>
               </p>
               <p class="d-flex justify-content-between">
                 <span>折扣價：</span>
-                <span class="fw-bold">{{ $filters.currency(Math.floor(cartData.final_total)) }} 元</span>
+                <span class="fw-bold">{{ cartStore.cart.final_total }} 元</span>
               </p>
               <div class="input-group my-3 input-group-sm">
                 <input
                 type="text"
                 class="form-control"
-                v-model="couponCode"
+                v-model="cartStore.couponCode"
                 placeholder="請輸入優惠碼"
                 ref="couponCode"/>
                 <div class="input-group-append">
-                  <button class="btn standardBtn text-white" type="button" @click="addCouponCode">
+                  <button class="btn standardBtn text-white" type="button" @click="cartStore.addCouponCode">
                     套用
                   </button>
                 </div>
               </div>
               <router-link to="/order">
-                <button class="btn standardBtn w-100" type="button" :disabled="cartData.carts.length === 0">
-                  填寫訂單
-                </button>
+                <button class="btn standardBtn w-100" type="button" :disabled="cartStore.cart.carts.length === 0">填寫訂單</button>
               </router-link>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ export const  useCartStore = defineStore("cart", () => {
 
     // console.log(response)
     if(response.success){
-      cart.value = response.data.carts
+      cart.value = response.data
     } else {
       console.log(response.message)
     }
@@ -75,5 +75,38 @@ export const  useCartStore = defineStore("cart", () => {
   }
 
 
-  return { cart, getCart, addToCart, removeCartItem, clearCart };
+  let couponCode = ref('')
+  const addCouponCode = async () => {
+    // this.isLoading = true
+    // const data = {
+    //   code: couponCode
+    // }
+    const response  = await useFetch(`${config.public.URL}/api/${config.public.PATH}/coupon`, {
+      method: 'post',
+      body: {data:{code: couponCode}}
+    })
+
+
+    // console.log(response.error._object[error._key].data.message)
+    console.log(response)
+
+    // console.log(response)
+    // this.$http.post(
+    //     `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/coupon`,
+    //     { data }
+    //   )
+    //   .then((response) => {
+    //     this.$httpMessageState(response, '套用優惠券')
+    //     this.couponCode = ''
+    //     this.getCart()
+    //     this.isLoading = false
+    //   })
+    //   .catch((error) => {
+    //     this.$httpMessageState(error.response, '套用優惠券')
+    //     this.couponCode = ''
+    //     this.isLoading = false
+    //   })
+  }
+
+  return { cart, getCart, addToCart, removeCartItem, clearCart, addCouponCode, couponCode };
 })
