@@ -45,9 +45,9 @@
         </ul>
       </div>
       <div class="d-none d-lg-flex">
-        <!-- <FrontFavorite/>
-        <FrontMember/>
-        <FrontCart/> -->
+        <FrontFavorite/>
+        <!-- <FrontMember/> -->
+        <!-- <FrontCart/> -->
       </div>
     </div>
   </nav>

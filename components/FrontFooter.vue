@@ -41,8 +41,7 @@
       <nuxtLink to="/" class="nav-link" style="cursor: pointer">
         <i class="bi bi-house" style="font-size: 1.5rem"></i>
       </nuxtLink>
-      123456789
-      <!-- <FrontFavorite/> -->
+      <FrontFavorite/>
       <!-- <FrontCart/> -->
       <!-- <FrontMember/> -->
     </div>

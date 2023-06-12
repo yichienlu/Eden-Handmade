@@ -50,13 +50,12 @@ onMounted(()=>{
 
 
 // favorites
-let favorite = ref([])
+const favoriteStore = useFavoriteStore()
 onMounted(()=>{
-  favorite.value = JSON.parse(localStorage.getItem('favorite')) || []
+  favoriteStore.getFavorite()
 })
-const toggleFavorite = function(id){
-  console.log(id)
-}
+
+
 
 </script>
 
@@ -95,8 +94,8 @@ const toggleFavorite = function(id){
                   <i class="fs-2 bi bi-search position-absolute top-50 start-50 translate-middle text-secondary"></i>
                   <nuxtLink :to="`/product/${product.id}`" class="stretched-link"></nuxtLink>
                 </div>
-              <button type="button" class="btn position-absolute top-0 end-0 border-0 favoriteBtn" @click="toggleFavorite(product.id)" style="z-index: 980">
-                <i v-if="favorite.includes(product.id)" class="bi bi-heart-fill fs-3"></i>
+              <button type="button" class="btn position-absolute top-0 end-0 border-0 favoriteBtn" @click="favoriteStore.toggleFavorite(product.id)" style="z-index: 980">
+                <i v-if="favoriteStore.favorite.includes(product.id)" class="bi bi-heart-fill fs-3"></i>
                 <i v-else class="bi bi-heart fs-3"></i>
               </button>
               </div>

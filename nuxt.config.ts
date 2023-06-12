@@ -7,4 +7,11 @@ export default defineNuxtConfig({
     }
   },
   css: ["@/assets/css/all.scss"],
+
+  // Pinia
+  "modules": ['@pinia/nuxt'],
+  "imports": {
+      "dirs": ['stores']
+   }
+ 
 })
