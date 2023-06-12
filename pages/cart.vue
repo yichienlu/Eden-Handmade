@@ -58,7 +58,7 @@ onMounted(() => {
           <div class="col-lg-8 ">
             <div class="d-md-none">
               <div v-for="item in cartStore.cart" :key="item.id" class="d-flex py-2 mb-4 border-bottom position-relative">
-                <a href="#" class="position-absolute end-0" @click.prevent="removeCartItem(item.id)" :disabled="isLoading">
+                <a href="#" class="position-absolute end-0" @click.prevent="cartStore.removeCartItem(item.id)" >
                   <i class="bi bi-x fs-2"></i>
                 </a>
                 <router-link :to="`/product/${item.product.id}`">
@@ -70,7 +70,7 @@ onMounted(() => {
                   </div>
                   <small>{{ item.product.description }}</small>
                   <div class="input-group input-group-sm my-2" style="width: 80px">
-                    <button class="btn btn-secondary text-white" type="button" :disabled="isLoading" @click="updateCartItem(item, -1)">
+                    <button class="btn btn-secondary text-white" type="button"  @click="updateCartItem(item, -1)">
                       -
                     </button>
                     <input
@@ -80,7 +80,7 @@ onMounted(() => {
                       v-model.number="item.qty"
                       @change="updateCartItem(item, 0)"
                     />
-                    <button class="btn btn-secondary text-white" type="button" :disabled="isLoading"  @click="updateCartItem(item, 1)">
+                    <button class="btn btn-secondary text-white" type="button"  @click="updateCartItem(item, 1)">
                       +
                     </button>
                   </div>
@@ -111,7 +111,7 @@ onMounted(() => {
               <tbody>
                 <tr v-for="item in cartStore.cart" :key="item.id">
                   <td>
-                    <button type="button" class="btn btn-sm" @click="removeCartItem(item.id)" :disabled="isLoading">
+                    <button type="button" class="btn btn-sm" @click="removeCartItem(item.id)" >
                       <i class="bi bi-trash3-fill text-danger fs-5"></i>
                     </button>
                   </td>
@@ -143,7 +143,6 @@ onMounted(() => {
                       <button
                         class="btn btn-secondary text-white"
                         type="button"
-                        :disabled="isLoading"
                         @click="updateCartItem(item, -1)"
                       >
                         -
@@ -158,7 +157,6 @@ onMounted(() => {
                       <button
                         class="btn btn-secondary text-white"
                         type="button"
-                        :disabled="isLoading"
                         @click="updateCartItem(item, 1)"
                       >
                         +
@@ -221,7 +219,7 @@ onMounted(() => {
     </div>
 
     <!-- Modal -->
-    <!-- <div class="modal fade" id="clearCartModal" tabindex="-1" aria-labelledby="clearCartModalLabel" aria-hidden="true">
+    <div class="modal fade" id="clearCartModal" tabindex="-1" aria-labelledby="clearCartModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content border-0">
           <div class="modal-header bg-danger text-white">
@@ -233,11 +231,11 @@ onMounted(() => {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="clearCart">忍痛清空</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="cartStore.clearCart">忍痛清空</button>
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
