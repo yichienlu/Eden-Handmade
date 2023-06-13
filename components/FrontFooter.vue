@@ -43,7 +43,7 @@
       </nuxtLink>
       <FrontFavorite/>
       <FrontCart/>
-      <!-- <FrontMember/> -->
+      <FrontMember/>
     </div>
   </div>
 </template>

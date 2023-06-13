@@ -97,7 +97,7 @@
                       <button
                         class="btn btn-secondary text-white"
                         type="button"
-                        :disabled="isLoading"
+                        
                         @click="cartStore.updateCartItem(item, -1)"
                       >
                         -
@@ -112,7 +112,7 @@
                       <button
                         class="btn btn-secondary text-white"
                         type="button"
-                        :disabled="isLoading"
+                        
                         @click="cartStore.updateCartItem(item, 1)"
                       >
                         +
@@ -125,7 +125,7 @@
                     type="button"
                     class="btn btn-outline-danger btn-sm"
                     @click="cartStore.removeCartItem(item.id)"
-                    :disabled="isLoading"
+                    
                   >
                     刪除
                   </button>

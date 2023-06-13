@@ -1,6 +1,30 @@
 <script setup>
+  const config = useRuntimeConfig();
+  const router = useRouter()
 
+  const user = ref({
+    username:'',
+    password:''
+  })
 
+  const login = async () => {
+    await useFetch(`${config.public.URL}/admin/signin`, {
+      method: 'post',
+      body: user.value
+    }).then((res)=>{
+      if(res.error.value){
+        console.log(res.error.value.data.message)
+      } else {
+        const { token, expired } = res.data.value
+        document.cookie = `hexToken = ${token}; expires=${new Date(expired)}`
+        
+        // console.log(res.data.value)
+        console.log(res.data.value.message)
+        
+        router.go(-1)
+      }
+    })
+  }
 
 
 </script>
