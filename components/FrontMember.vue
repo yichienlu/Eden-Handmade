@@ -32,21 +32,28 @@
 
     if (token) {
       // this.$http.defaults.headers.common.Authorization = token
+  
           
       await useFetch(`${config.public.URL}/api/user/check`,{
-        method:'post'
+        method:'post',
       }).then((res)=>{
         if(res.error.value){
           console.log(res.error.value.data.message)
           loggedIn.value = false
-
         } else {
           loggedIn.value = true
-          console.log(res.data.value?.message)
+          // console.log(res.data.value?.message)
         }
+        // console.log(res)
+
+
       })
 
-      await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/coupons`)
+      console.log(loggedIn.value)
+
+      await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/coupons`,{
+        headers:{ Authorization: token }
+      })
       .then((res)=>{
         if(res.error.value){
           console.log(res.error.value.data.message)
@@ -65,6 +72,21 @@
         
         }
   }
+
+  const logOut = () => {
+      document.cookie = 'hexToken=;expires=;'
+      // this.emitter.emit('push-message', {
+      //   style: 'success',
+      //   title: '已登出'
+      // })
+      loggedIn.value = false
+      checkSuccess.value = false
+      window.location.href = '/'
+      // router.go(-1)
+    }
+
+
+
   onMounted(()=>{
     checkAdmin()
   })
