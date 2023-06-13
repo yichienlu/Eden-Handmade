@@ -1,13 +1,14 @@
 <script setup>
-// const config = useRuntimeConfig();
 
 const cartStore = useCartStore()
 
+cartStore.getCart()
 
-onMounted(() => {
-  cartStore.getCart()
 
-})
+// onMounted(() => {
+//   cartStore.getCart()
+
+// })
 
 
 
@@ -51,7 +52,7 @@ onMounted(() => {
           </ul>
         </div>
       </div>
-      <div v-if="cartStore.cart.length == 0" class="my-5 text-center">
+      <div v-if="cartStore.cart.final_total == 0" class="my-5 text-center">
         <h5>購物車裡沒有東西！快去逛逛吧！！</h5>
         <router-link to="/product" class="btn standardBtn">
           去逛逛
@@ -74,7 +75,7 @@ onMounted(() => {
                   </div>
                   <small>{{ item.product.description }}</small>
                   <div class="input-group input-group-sm my-2" style="width: 80px">
-                    <button class="btn btn-secondary text-white" type="button"  @click="updateCartItem(item, -1)">
+                    <button class="btn btn-secondary text-white" type="button"  @click="cartStore.updateCartItem(item, -1)">
                       -
                     </button>
                     <input
@@ -82,9 +83,9 @@ onMounted(() => {
                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
                       class="form-control text-center"
                       v-model.number="item.qty"
-                      @change="updateCartItem(item, 0)"
+                      @change="cartStore.updateCartItem(item, 0)"
                     />
-                    <button class="btn btn-secondary text-white" type="button"  @click="updateCartItem(item, 1)">
+                    <button class="btn btn-secondary text-white" type="button"  @click="cartStore.updateCartItem(item, 1)">
                       +
                     </button>
                   </div>
@@ -152,7 +153,7 @@ onMounted(() => {
                         -
                       </button>
                       <input
-                        type="number"
+                        type="number" min="0" step="1"
                         onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
                         class="form-control text-center"
                         v-model.number="item.qty"
@@ -174,7 +175,7 @@ onMounted(() => {
               </tbody>
             </table>
             <div>
-              <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#clearCartModal" :disabled="cartStore.cart.length === 0">
+              <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#clearCartModal">
                 清空購物車
               </button>
             </div>
@@ -185,11 +186,11 @@ onMounted(() => {
                 <span>總計：</span>
                 <span>{{ cartStore.cart.total }} 元</span>
               </p>
-              <p v-if="cartStore.cart.carts[0].coupon" class="text-danger d-flex justify-content-between">
+              <p v-if="cartStore.cart.carts?.[0].coupon" class="text-danger d-flex justify-content-between">
                 <span>優惠券折扣：</span>
-                <span>- {{ cartData.total - Math.floor(cartStore.final_total) }} 元</span>
+                <span>- {{ cartStore.cart.total - Math.floor(cartStore.cart.final_total) }} 元</span>
               </p>
-              <p v-if="cartStore.cart.carts[0].coupon" class="text-end">
+              <p v-if="cartStore.cart.carts?.[0].coupon" class="text-end">
                 <small class="text-danger">
                   (已套用「{{ cartStore.cart.carts[0].coupon.title }}」優惠券：{{ cartStore.cart.carts[0].coupon.code }})
                   </small>
@@ -212,7 +213,7 @@ onMounted(() => {
                 </div>
               </div>
               <router-link to="/order">
-                <button class="btn standardBtn w-100" type="button" :disabled="cartStore.cart.carts.length === 0">填寫訂單</button>
+                <button class="btn standardBtn w-100" type="button">填寫訂單</button>
               </router-link>
             </div>
           </div>

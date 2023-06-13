@@ -47,7 +47,7 @@
       <div class="d-none d-lg-flex">
         <FrontFavorite/>
         <!-- <FrontMember/> -->
-        <!-- <FrontCart/> -->
+        <FrontCart/>
       </div>
     </div>
   </nav>

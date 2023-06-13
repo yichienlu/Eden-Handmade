@@ -42,7 +42,7 @@
         <i class="bi bi-house" style="font-size: 1.5rem"></i>
       </nuxtLink>
       <FrontFavorite/>
-      <!-- <FrontCart/> -->
+      <FrontCart/>
       <!-- <FrontMember/> -->
     </div>
   </div>

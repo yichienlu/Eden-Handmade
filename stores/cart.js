@@ -39,10 +39,13 @@ export const  useCartStore = defineStore("cart", () => {
       body: { data }
     })
     .then((res)=>{
-      console.log(res.data._rawValue.message)
-      getCart()
+      if(res.error.value){
+        console.log(res.error.value.data.message)
+      } else {
+        console.log(res.data.value.message)
+        getCart()
+      }
     })
-    .catch((err)=> console.log(err))
 
   }
 
@@ -53,14 +56,42 @@ export const  useCartStore = defineStore("cart", () => {
       method: 'delete'
     })
     .then((res)=>{
-      console.log(res.data._rawValue.message)
-      getCart()
+      if(res.error.value){
+        console.log(res.error.value.data.message)
+      } else {
+        console.log(res.data.value.message)
+        getCart()
+      }
     })
-    .catch((err)=> console.log(err))
       
   }
 
   const updateCartItem = async (item, num) => {
+    if (item.qty + num === 0) {
+      removeCartItem(item.id)
+      return
+    }
+
+    // this.isLoading = true
+
+    await useFetch(`${config.public.URL}/api/${config.public.PATH}/cart/${item.id}`, {
+      method: 'put',
+      body: {
+        data:{
+          product_id: item.id,
+          qty: item.qty + num
+        }
+      }
+    }).then((res)=>{
+      // isLoading = false
+      if(res.error.value){
+        console.log(res.error.value.data.message)
+      } else {
+        console.log(res.data.value.message)
+        getCart()
+      }
+    })
+
 
   }
 
@@ -75,38 +106,25 @@ export const  useCartStore = defineStore("cart", () => {
   }
 
 
+  // 折價券
   let couponCode = ref('')
   const addCouponCode = async () => {
-    // this.isLoading = true
-    // const data = {
-    //   code: couponCode
-    // }
-    const response  = await useFetch(`${config.public.URL}/api/${config.public.PATH}/coupon`, {
+    // isLoading = true
+    await useFetch(`${config.public.URL}/api/${config.public.PATH}/coupon`, {
       method: 'post',
       body: {data:{code: couponCode}}
+    }).then((res)=>{
+      if(res.error.value){
+        console.log(res.error.value.data.message)
+      } else {
+        console.log(res.data.value.message)
+        getCart()
+      }
+          // isLoading = false
+
     })
 
-
-    // console.log(response.error._object[error._key].data.message)
-    console.log(response)
-
-    // console.log(response)
-    // this.$http.post(
-    //     `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/coupon`,
-    //     { data }
-    //   )
-    //   .then((response) => {
-    //     this.$httpMessageState(response, '套用優惠券')
-    //     this.couponCode = ''
-    //     this.getCart()
-    //     this.isLoading = false
-    //   })
-    //   .catch((error) => {
-    //     this.$httpMessageState(error.response, '套用優惠券')
-    //     this.couponCode = ''
-    //     this.isLoading = false
-    //   })
   }
 
-  return { cart, getCart, addToCart, removeCartItem, clearCart, addCouponCode, couponCode };
+  return { cart, getCart, addToCart, removeCartItem, clearCart, updateCartItem, addCouponCode, couponCode };
 })
