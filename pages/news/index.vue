@@ -3,7 +3,9 @@
 
   const articlesStore = useArticlesStore()
 
-  articlesStore.getArticles()
+
+    articlesStore.getArticles()
+
 
 </script>
 

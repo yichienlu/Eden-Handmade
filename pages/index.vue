@@ -5,8 +5,39 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import { Autoplay, Pagination, Navigation } from 'swiper'
 
+const swiperOptions = ref({
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev'
+  },
+  breakpoints: {
+    320: {
+      slidesPerView: 1.25,
+      spaceBetween: 16
+    },
+    540: {
+      slidesPerView: 2.5,
+      spaceBetween: 16
+    },
+    720: {
+      slidesPerView: 3.5,
+      spaceBetween: 16
+    }
+  }
+})
 
-const articles = ref([])
+const productsStore = useProductsStore()
+productsStore.getProducts()
+
+const articlesStore = useArticlesStore()
+articlesStore.getArticles()
+
+const favoriteStore = useFavoriteStore()
+const cartStore = useCartStore()
+
+// return {
+//   modules: [Autoplay, Pagination, Navigation]
+// }
 </script>
 
 <template>
@@ -96,13 +127,13 @@ const articles = ref([])
   </div>
   <div class="container my-5 pb-5 swiper-custom">
     <h2 class="fw-bold text-center mb-3">熱銷商品<span class="dancing h3 text-secondary fw-bold ms-3">Best Sellers</span></h2>
-      <!-- <swiper
+      <swiper
         :navigation="true"
         :loop="true"
         :modules="modules"
         :breakpoints="swiperOptions.breakpoints"
       >
-        <swiper-slide v-for="product in products" :key="product.id">
+        <swiper-slide v-for="product in productsStore.products" :key="product.id">
           <div class="card border-0 h-100 product-card position-relative">
             <nuxtLink :to="`/product/${product.id}`" class="stretched-link"></nuxtLink>
             <div class="card-img-top position-relative" :style="`height:200px; background-image: url(${product.imageUrl}); background-size: cover; background-position:center`">
@@ -110,8 +141,8 @@ const articles = ref([])
                 <i class="fs-2 bi bi-search position-absolute top-50 start-50 translate-middle text-secondary"></i>
                 <nuxtLink :to="`/product/${product.id}`" class="stretched-link"></nuxtLink>
               </div>
-              <button type="button" class="btn position-absolute top-0 end-0 border-0 favoriteBtn" @click="toggleFavorite(product.id)" style="z-index: 980">
-                <i v-if="this.favorite.includes(product.id)" class="bi bi-heart-fill fs-3"></i>
+              <button type="button" class="btn position-absolute top-0 end-0 border-0 favoriteBtn" @click="favoriteStore.toggleFavorite(product.id)" style="z-index: 980">
+                <i v-if="favoriteStore.favorite.includes(product.id)" class="bi bi-heart-fill fs-3"></i>
                 <i v-else class="bi bi-heart fs-3"></i>
               </button>
             </div>
@@ -131,13 +162,13 @@ const articles = ref([])
                   <del class="text-muted" style="font-size: 0.5rem">$ {{ product.origin_price }} </del>
                 </div>
               </div>
-              <button type="button" style="z-index: 980" class="btn btn-sm standardBtn" @click="addToCart(product.id)" :disabled="isLoading">
+              <button type="button" style="z-index: 980" class="btn btn-sm standardBtn" @click="cartStore.addToCart(product.id)" :disabled="isLoading">
                   加入購物車
               </button>
             </div>
           </div>
         </swiper-slide>
-    </swiper> -->
+    </swiper>
   </div>
   <div class="container-md my-5 pb-5">
     <h2 class="fw-bold text-center mb-3">最新消息<span class="dancing h3 text-secondary fw-bold ms-3">News</span></h2>
@@ -151,7 +182,7 @@ const articles = ref([])
             </tr>
           </thead>
           <tbody>
-            <tr v-for="article in articles" :key="article.id">
+            <tr v-for="article in articlesStore.articles" :key="article.id">
               <th scope="row">{{ article.create_at }}</th>
               <td>
                 <nuxtLink
