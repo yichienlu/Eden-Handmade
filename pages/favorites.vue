@@ -1,6 +1,6 @@
 <script setup>
 const config = useRuntimeConfig();
-
+const cartStore = useCartStore()
 const favoriteStore = useFavoriteStore()
 onMounted(()=>{
   favoriteStore.getFavorite()
@@ -71,7 +71,7 @@ onMounted(()=>{
                   <del class="text-muted" style="font-size: 0.5rem">$ {{ product.origin_price }} </del>
                 </div>
               </div>
-              <button type="button" style="z-index: 980" class="btn btn-sm standardBtn" @click="addToCart(product.id)" :disabled="isLoading">
+              <button type="button" style="z-index: 980" class="btn btn-sm standardBtn" @click="cartStore.addToCart(product.id)" :disabled="isLoading">
                   加入購物車
               </button>
             </div>
