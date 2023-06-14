@@ -33,8 +33,11 @@ productsStore.getProducts()
 const articlesStore = useArticlesStore()
 articlesStore.getArticles()
 
+const news = ref(articlesStore.articles.splice(0,3))
+
 const favoriteStore = useFavoriteStore()
 const cartStore = useCartStore()
+
 
 
 </script>
@@ -181,7 +184,7 @@ const cartStore = useCartStore()
             </tr>
           </thead>
           <tbody>
-            <tr v-for="article in articlesStore.articles" :key="article.id">
+            <tr v-for="article in news" :key="article.id">
               <th scope="row">{{ article.create_at }}</th>
               <td>
                 <nuxtLink
