@@ -8,8 +8,16 @@ export default defineNuxtConfig({
   },
   css: ["@/assets/css/all.scss"],
 
-  // Pinia
-  "modules": ['@pinia/nuxt'],
+  "modules": ['@pinia/nuxt'
+  // ,'nuxt-swiper'
+],
+  // swiper: {
+  //   // Swiper options
+  //   //----------------------
+  //   // prefix: 'Swiper',
+  //   // styleLang: 'css',
+  //   modules: ['navigation', 'pagination'], // all modules are imported by default
+  // },
   "imports": {
       "dirs": ['stores']
    }

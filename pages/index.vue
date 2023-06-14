@@ -5,6 +5,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import { Autoplay, Pagination, Navigation } from 'swiper'
 
+const modules = [Autoplay, Pagination, Navigation]
 const swiperOptions = ref({
   navigation: {
     nextEl: '.swiper-button-next',
@@ -35,9 +36,7 @@ articlesStore.getArticles()
 const favoriteStore = useFavoriteStore()
 const cartStore = useCartStore()
 
-// return {
-//   modules: [Autoplay, Pagination, Navigation]
-// }
+
 </script>
 
 <template>
@@ -48,7 +47,7 @@ const cartStore = useCartStore()
         delay: 3000,
         disableOnInteraction: false,
       }"
-      :modules="modules"
+      :modules=modules
     >
       <swiper-slide>
         <div class="img-cover" style="height: 80vh; background-image:url('/images/home-banner_01.png');">
@@ -162,7 +161,7 @@ const cartStore = useCartStore()
                   <del class="text-muted" style="font-size: 0.5rem">$ {{ product.origin_price }} </del>
                 </div>
               </div>
-              <button type="button" style="z-index: 980" class="btn btn-sm standardBtn" @click="cartStore.addToCart(product.id)" :disabled="isLoading">
+              <button type="button" style="z-index: 980" class="btn btn-sm standardBtn" @click="cartStore.addToCart(product.id)">
                   加入購物車
               </button>
             </div>
