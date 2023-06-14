@@ -46,7 +46,7 @@
       </div>
       <div class="d-none d-lg-flex">
         <FrontFavorite/>
-        <!-- <FrontMember/> -->
+        <FrontMember/>
         <FrontCart/>
       </div>
     </div>

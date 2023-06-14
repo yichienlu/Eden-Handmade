@@ -18,10 +18,11 @@
         const { token, expired } = res.data.value
         document.cookie = `hexToken = ${token}; expires=${new Date(expired)}`
         
-        // console.log(res.data.value)
+
         console.log(res.data.value.message)
         
-        router.go(-1)
+        window.location.href = '/'
+
       }
     })
   }
