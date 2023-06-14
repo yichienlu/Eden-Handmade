@@ -1,16 +1,7 @@
 <script setup>
 
 const cartStore = useCartStore()
-
 cartStore.getCart()
-
-
-// onMounted(() => {
-//   cartStore.getCart()
-
-// })
-
-
 
 
 </script>
@@ -54,9 +45,9 @@ cartStore.getCart()
       </div>
       <div v-if="cartStore.cart.final_total == 0" class="my-5 text-center">
         <h5>購物車裡沒有東西！快去逛逛吧！！</h5>
-        <router-link to="/product" class="btn standardBtn">
+        <nuxtLink to="/product" class="btn standardBtn">
           去逛逛
-        </router-link>
+        </nuxtLink>
       </div>
       <div v-else class="my-5">
         <div class="row">
@@ -66,12 +57,12 @@ cartStore.getCart()
                 <a href="#" class="position-absolute end-0" @click.prevent="cartStore.removeCartItem(item.id)" >
                   <i class="bi bi-x fs-2"></i>
                 </a>
-                <router-link :to="`/product/${item.product.id}`">
+                <nuxtLink :to="`/product/${item.product.id}`">
                   <div class="img-cover me-3" style="width:100px; height: 120px;" :style="`background-image: url('${item.product.imageUrl}')`"></div>
-                </router-link>
+                </nuxtLink>
                 <div>
                   <div class="fw-bold">
-                    <router-link :to="`/product/${item.product.id}`">{{ item.product.title }}</router-link>
+                    <nuxtLink :to="`/product/${item.product.id}`">{{ item.product.title }}</nuxtLink>
                   </div>
                   <small>{{ item.product.description }}</small>
                   <div class="input-group input-group-sm my-2" style="width: 80px">
@@ -121,7 +112,7 @@ cartStore.getCart()
                     </button>
                   </td>
                   <td>
-                    <router-link
+                    <nuxtLink
                       :to="`/product/${item.product.id}`"
                       class="link-dark d-md-flex align-items-center"
                     >
@@ -130,7 +121,7 @@ cartStore.getCart()
                         <p class="fw-bold">{{ item.product.title }}</p>
                         <small>{{ item.product.description }}</small>
                       </div>
-                    </router-link>
+                    </nuxtLink>
                   </td>
                   <td class="text-center">
                     <div v-if="item.product.price === item.product.origin_price" class="text-danger">
@@ -212,9 +203,9 @@ cartStore.getCart()
                   </button>
                 </div>
               </div>
-              <router-link to="/order">
+              <nuxtLink to="/order">
                 <button class="btn standardBtn w-100" type="button">填寫訂單</button>
-              </router-link>
+              </nuxtLink>
             </div>
           </div>
         </div>
