@@ -1,35 +1,10 @@
 <script setup>
   const config = useRuntimeConfig();
 
-  const articles = ref([])
-  const tempArticle = ref({})
-  const pagination = ref({})
-  let isLoading = ref(false)
+  const articlesStore = useArticlesStore()
+  console.log(articlesStore)
 
-
-  const getArticles = async (page=1) => {
-    // isLoading = true
-    await useFetch(`${config.public.URL}/api/${config.public.PATH}/articles?page=${page}`)
-    .then((res)=>{
-      if(res.error.value){
-        console.log(res.error.value.data.message)
-      } else {
-        articles.value = res.data._rawValue.articles
-        pagination.value = res.data._rawValue.pagination
-      }
-    })
-
-    // .then((response) => {
-    //   this.articles = response.data.articles
-    //   this.pagination = response.data.pagination
-    //   this.isLoading = false
-    // }).catch((error) => {
-    //   this.$httpMessageState(error.response, '錯誤訊息')
-    //   this.isLoading = false
-    // })
-
-  }
-    getArticles()
+  articlesStore.getArticles()
 
 </script>
 
@@ -42,7 +17,7 @@
       <div class="col-md-8 col-lg-6 my-4 my-lg-5">
         <h1 class="fw-bold text-center mb-4 mb-lg-5">最新消息 <span class="dancing h2 text-secondary fw-bold">News</span></h1>
         <div class="accordion" id="accordionExample">
-          <template v-for="article in articles" :key="article.id">
+          <template v-for="article in articlesStore.articles" :key="article.id">
             <div class="accordion-item">
               <h2 class="accordion-header" :key="article.id">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="`#collapse${article.id}`" aria-expanded="true" :aria-controls="`collapse${article.id}`">
@@ -65,7 +40,7 @@
             </div>
           </template>
         </div>
-        <pagination-component :pages="pagination" @get-items="getArticles"></pagination-component>
+        <pagination-component :pages="articlesStore.pagination" @get-items="articlesStore.getArticles"></pagination-component>
       </div>
     </div>
   </div>

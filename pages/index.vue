@@ -6,7 +6,7 @@ import 'swiper/css/navigation'
 import { Autoplay, Pagination, Navigation } from 'swiper'
 
 
-
+const articles = ref([])
 </script>
 
 <template>
@@ -152,7 +152,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper'
           </thead>
           <tbody>
             <tr v-for="article in articles" :key="article.id">
-              <th scope="row">{{ $filters.date(article.create_at) }}</th>
+              <th scope="row">{{ article.create_at }}</th>
               <td>
                 <nuxtLink
                   :to="`/news/${article.id}`"
