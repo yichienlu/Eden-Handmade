@@ -17,7 +17,7 @@ const getProduct = async (id) => {
   } else {
     console.log(response.message)
   }
-  isLoading.value = false;
+  // isLoading.value = false;
 
 }
 onMounted(()=>{
@@ -33,6 +33,7 @@ const changeNumber = (num) => {
   qty.value += num
 }
 
+const cartStore = useCartStore()
 
 </script>
 
@@ -40,7 +41,7 @@ const changeNumber = (num) => {
    <!-- <Loading-component :active="isLoading"></Loading-component> -->
   <div class="container py-5">
     <div class="row flex-sm-row-reverse">
-      <div class="col-sm-6 position-relative">
+      <div class="col-sm-8 position-relative">
         <div>
           <h1>{{ product.title }}</h1>
           <img :src="product.imageUrl" alt="主要商品照片" class="d-inline-block d-sm-none img-fluid my-2">
@@ -64,7 +65,7 @@ const changeNumber = (num) => {
           </div>
           <div class="row">
             <div class="col-md-6 mb-3">
-              <button class="btn standardBtn w-100" type="button" @click="addToCart(product.id, qty)">加到購物車</button>
+              <button class="btn standardBtn w-100" type="button" @click="cartStore.addToCart(product.id, qty)">加到購物車</button>
             </div>
             <div class="col-md-6 mb-3">
               <button class="btn btn-outline-primary w-100" type="button" @click="favoriteStore.toggleFavorite(product.id)" >
@@ -150,15 +151,22 @@ const changeNumber = (num) => {
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
-        <img :src="product.imageUrl" alt="主要商品照片" class="d-none d-sm-inline-block img-fluid my-2">
+      <div class="col-sm-4 position-relative overflow-scroll image-box">
+        <div class="position-absolute">
+<img :src="product.imageUrl" alt="主要商品照片" class="d-none d-sm-inline-block img-fluid my-2 ">
         <template v-for="image in product.imagesUrl" :key="image">
           <img :src="image" alt="次要商品照片" class="img-fluid my-2">
         </template>
+        </div>
+        
       </div>
     </div>
   </div>
   
 </template>
 
-<style scoped></style>
+<style scoped>
+.image-box::-webkit-scrollbar {
+    display: none;
+}
+</style>
