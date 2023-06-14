@@ -1,63 +1,21 @@
 <script setup>
-const config = useRuntimeConfig();
-let products = ref([]);
-let categories = ref([])
-let selectedCategory = ref('')
-let pagination = ref({});
-let currentPage = ref(1)
-let isLoading = ref(false);
+  const config = useRuntimeConfig();
 
+  // Products
+  const productsStore = useProductsStore()
+  onMounted(()=>{
+    productsStore.getCategories()
+    productsStore.getProducts()
+  })
 
-// 取得商品資料 & 頁數資料
-const getProducts = async (page=1, category='') => {
-  isLoading.value = true;
-  const response = await fetch(`${config.public.URL}/api/${config.public.PATH}/products?page=${page}&category=${category}`)
-  .then((res)=>res.json())
-  .catch((err)=>err.json())
+  // favorites
+  const favoriteStore = useFavoriteStore()
+  onMounted(()=>{
+    favoriteStore.getFavorite()
+  })
 
-  if(response.success){
-    products.value = response.products
-    pagination.value = response.pagination
-    selectedCategory.value = category
-    currentPage.value = page
-  } else {
-    console.log(response.message)
-  }
-  isLoading.value = false;
-
-}
-
-// 取得所有商品類別
-const getCategories = async () => {
-  const response = await fetch(`${config.public.URL}/api/${config.public.PATH}/products/all`)
-  .then((res)=>res.json())
-  .catch((err)=>err.json())
-
-  if(response.success){
-    categories.value = Array.from(new Set(response.products.map(i => i.category))).reverse()
-  } else {
-    console.log(response.message)
-  }
-  
-}
-
-
-onMounted(()=>{
-  getCategories()
-  getProducts()
-})
-
-
-
-// favorites
-const favoriteStore = useFavoriteStore()
-onMounted(()=>{
-  favoriteStore.getFavorite()
-})
-
-// cart
-const cartStore = useCartStore()
-
+  // cart
+  const cartStore = useCartStore()
 
 </script>
 
@@ -71,24 +29,24 @@ const cartStore = useCartStore()
       <div class="col-lg-2 position-relative">
         <ul class="list-unstyled d-none justify-content-between d-lg-block position-sticky" style="top: 100px">
           <li class="mb-3 me-3 pb-1 pb-lg-0 ps-lg-1" :class="{'bg-primary':selectedCategory==''}">
-            <a href="#" @click.prevent="getProducts(1,'')" class="d-block p-2 p-lg-3 bg-white" :class="{'fw-bold':selectedCategory==''}"> 全部商品</a>
+            <a href="#" @click.prevent="productsStore.getProducts(1,'')" class="d-block p-2 p-lg-3 bg-white" :class="{'fw-bold':productsStore.selectedCategory==''}"> 全部商品</a>
           </li>
-          <li v-for="category in categories" :key="category" class="mb-3 me-3 pb-1 pb-lg-0 ps-lg-1" :class="{'bg-primary':selectedCategory==category}">
-            <a href="#" @click.prevent="getProducts(1,category)" class="d-block p-2 p-lg-3 bg-white" :class="{'fw-bold':selectedCategory==category}"> {{ category }}</a>
+          <li v-for="category in productsStore.categories" :key="category" class="mb-3 me-3 pb-1 pb-lg-0 ps-lg-1" :class="{'bg-primary':productsStore.selectedCategory==category}">
+            <a href="#" @click.prevent="productsStore.getProducts(1,category)" class="d-block p-2 p-lg-3 bg-white" :class="{'fw-bold':productsStore.selectedCategory==category}"> {{ category }}</a>
           </li>
         </ul>
       </div>
       <div class="col-lg-10 position-relative">
         <ul class="list-unstyled bg-white d-flex justify-content-between d-lg-none position-sticky py-3" style="top: 60px; z-index: 990">
-          <li class="me-3 pb-1 pb-lg-0 ps-lg-1" :class="{'bg-primary':selectedCategory==''}">
-            <a href="#" @click.prevent="getProducts(1,'')" class="d-none d-sm-block p-2 p-lg-3 bg-white" :class="{'fw-bold':selectedCategory==''}"> 全部商品</a>
+          <li class="me-3 pb-1 pb-lg-0 ps-lg-1" :class="{'bg-primary':productsStore.selectedCategory==''}">
+            <a href="#" @click.prevent="productsStore.getProducts(1,'')" class="d-none d-sm-block p-2 p-lg-3 bg-white" :class="{'fw-bold':productsStore.selectedCategory==''}"> 全部商品</a>
           </li>
-          <li v-for="category in categories" :key="category" class="me-3 pb-1 pb-lg-0 ps-lg-1" :class="{'bg-primary':selectedCategory==category}">
-            <a href="#" @click.prevent="getProducts(1,category)" class="d-block p-2 p-lg-3 bg-white" :class="{'fw-bold':selectedCategory==category}"> {{ category }}</a>
+          <li v-for="category in productsStore.categories" :key="category" class="me-3 pb-1 pb-lg-0 ps-lg-1" :class="{'bg-primary':productsStore.selectedCategory==category}">
+            <a href="#" @click.prevent="productsStore.getProducts(1,category)" class="d-block p-2 p-lg-3 bg-white" :class="{'fw-bold':productsStore.selectedCategory==category}"> {{ category }}</a>
           </li>
         </ul>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 gx-4 gy-5">
-          <div class="col" v-for="product in products" :key="product.id">
+          <div class="col" v-for="product in productsStore.products" :key="product.id">
             <div class="card border-0 h-100 product-card position-relative">
               <nuxtLink :to="`/product/${product.id}`" class="stretched-link"></nuxtLink>
               <div class="card-img-top position-relative" :style="`height:200px; background-image: url(${product.imageUrl}); background-size: cover; background-position:center`">
@@ -122,7 +80,7 @@ const cartStore = useCartStore()
             </div>
           </div>
         </div>
-        <pagination-component :pages="pagination" @get-items="getProducts"></pagination-component>
+        <pagination-component :pages="productsStore.pagination" @get-items="productsStore.getProducts"></pagination-component>
       </div>
     </div>
   </div>

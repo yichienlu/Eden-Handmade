@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+
 export const useArticlesStore = defineStore("articles", () => {
   const config = useRuntimeConfig();
   

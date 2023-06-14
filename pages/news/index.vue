@@ -2,7 +2,6 @@
   const config = useRuntimeConfig();
 
   const articlesStore = useArticlesStore()
-  console.log(articlesStore)
 
   articlesStore.getArticles()
 
