@@ -101,4 +101,5 @@ const logOut = () => {
 onMounted(() => {
   checkAdmin();
 });
+
 </script>
