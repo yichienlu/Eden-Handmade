@@ -29,12 +29,12 @@ const swiperOptions = ref({
   }
 })
 
+// stores
 const productsStore = useProductsStore()
 productsStore.getProducts()
 
 const articlesStore = useArticlesStore()
 articlesStore.getArticles()
-
 const news = ref(articlesStore.articles.splice(0,3))
 
 const favoriteStore = useFavoriteStore()
@@ -50,8 +50,6 @@ const goNext = () => {
     scrollTop: headerHeight + bannerHeight
   }, 500)
 }
-
-
 
 onMounted(()=>{
   setTimeout(()=>{
