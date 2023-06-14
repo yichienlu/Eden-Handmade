@@ -7,7 +7,7 @@
   
 </script>
 <template>
-  <div>
+  <div class="position-relative">
     <FrontNavbar />
     <slot />
     <FrontFooter />

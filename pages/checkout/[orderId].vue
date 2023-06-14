@@ -1,7 +1,33 @@
 <script setup>
+  const config = useRuntimeConfig();
 
+  const order = ref({user:{}})
+  const { orderId } = useRoute().params
 
+  const getOrder = async () => {
+    await useFetch(`${config.public.URL}/api/${config.public.PATH}/order/${orderId}`)
+    .then((res)=>{
+      if(res.error.value){
+        console.log(res.error.value.data.message)
+      }else{
+        order.value = res.data.value.order
+        // console.log(res.data.value)
+      }
+    })
+  }
+  getOrder()
 
+  const payOrder = async () => {
+    await useFetch(`${config.public.URL}/api/${config.public.PATH}/pay/${orderId}`,{method:'post'})
+    .then((res)=>{
+      if(res.error.value){
+        console.log(res.error.value.data.message)
+      }else{
+        order.value = res.data.value.order
+        // console.log(res.data.value)
+      }
+    })
+  }
 
 </script>
 
@@ -41,6 +67,7 @@
         </ul>
       </div>
     </div>
+    <h1 class="mb-5">訂單已建立！</h1>
     <div class="my-3 row justify-content-center">
       <form class="col-md-6">
         <table class="table align-middle">
@@ -50,16 +77,16 @@
           <th>單價</th>
           </thead>
           <tbody>
-          <!-- <tr v-for="item in order.products" :key="item.id">
+          <tr v-for="item in order.products" :key="item.id">
             <td>{{ item.product.title }}</td>
             <td>{{ item.qty }} {{ item.product.unit }}</td>
             <td class="text-end">{{ item.final_total }}</td>
-          </tr> -->
+          </tr>
           </tbody>
           <tfoot>
           <tr>
             <td colspan="2" class="text-end">總計</td>
-            <!-- <td class="text-end">{{ order.total }}</td> -->
+            <td class="text-end">{{ order.total }}</td>
           </tr>
           </tfoot>
         </table>
@@ -67,25 +94,25 @@
           <tbody>
           <tr>
             <th width="100">Email</th>
-            <!-- <td>{{ order.user.email }}</td> -->
+            <td>{{ order.user.email }}</td>
           </tr>
           <tr>
             <th>姓名</th>
-            <!-- <td>{{ order.user.name }}</td> -->
+            <td>{{ order.user.name }}</td>
           </tr>
           <tr>
             <th>收件人電話</th>
-            <!-- <td>{{ order.user.tel }}</td> -->
+            <td>{{ order.user.tel }}</td>
           </tr>
           <tr>
             <th>收件人地址</th>
-            <!-- <td>{{ order.user.address }}</td> -->
+            <td>{{ order.user.address }}</td>
           </tr>
           <tr>
             <th>付款狀態</th>
             <td>
-              <!-- <span v-if="!order.is_paid" class="text-danger">尚未付款</span> -->
-              <!-- <span v-else class="text-success">付款完成</span> -->
+              <span v-if="!order.is_paid" class="text-danger">尚未付款</span>
+              <span v-else class="text-success">付款完成</span>
             </td>
           </tr>
           </tbody>
@@ -95,7 +122,7 @@
             <button type="button" class="btn btn-outline-primary">回訂單列表</button>
           </nuxtLink>
           <nuxtLink to="/checkout-success">
-            <!-- <button type="button" v-if="order.is_paid === false" class="btn standardBtn" @click="payOrder">確認付款</button> -->
+            <button type="button" v-if="order.is_paid === false" class="btn standardBtn" @click="payOrder">確認付款</button>
           </nuxtLink>
         </div>
       </form>

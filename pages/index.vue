@@ -1,4 +1,6 @@
 <script setup>
+import $ from 'jquery'
+
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -38,11 +40,28 @@ const news = ref(articlesStore.articles.splice(0,3))
 const favoriteStore = useFavoriteStore()
 const cartStore = useCartStore()
 
+const isLoading = ref(true)
 
 
+const goNext = () => {
+  const headerHeight = $('.home-header').outerHeight()
+  const bannerHeight = $('.home-banner').outerHeight()
+  $('body, html').animate({
+    scrollTop: headerHeight + bannerHeight
+  }, 500)
+}
+
+
+
+onMounted(()=>{
+  setTimeout(()=>{
+    isLoading.value = false
+  }, 1000)
+})
 </script>
 
 <template>
+  <Is-loading :class="{'d-none':!isLoading}"></Is-loading>
   <div class="position-relative home-header">
     <swiper
       :loop="true"
