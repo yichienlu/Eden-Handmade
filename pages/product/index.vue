@@ -1,6 +1,7 @@
 <script setup>
   const config = useRuntimeConfig();
 
+  const isLoading = ref(false)
   // Products
   const productsStore = useProductsStore()
   onMounted(()=>{
@@ -28,7 +29,7 @@
     <div class="row">
       <div class="col-lg-2 position-relative">
         <ul class="list-unstyled d-none justify-content-between d-lg-block position-sticky" style="top: 100px">
-          <li class="mb-3 me-3 pb-1 pb-lg-0 ps-lg-1" :class="{'bg-primary':selectedCategory==''}">
+          <li class="mb-3 me-3 pb-1 pb-lg-0 ps-lg-1" :class="{'bg-primary':productsStore.selectedCategory==''}">
             <a href="#" @click.prevent="productsStore.getProducts(1,'')" class="d-block p-2 p-lg-3 bg-white" :class="{'fw-bold':productsStore.selectedCategory==''}"> 全部商品</a>
           </li>
           <li v-for="category in productsStore.categories" :key="category" class="mb-3 me-3 pb-1 pb-lg-0 ps-lg-1" :class="{'bg-primary':productsStore.selectedCategory==category}">
