@@ -1,33 +1,54 @@
 <script setup>
-// import { Field, Form, ErrorMessage, defineRule, configure } from 'vee-validate' // 匯入 vee-validate 主套件
-// import { required, email, min } from '@vee-validate/rules' // 匯入 vee-validate 相關規則
-// import { localize, setLocale } from '@vee-validate/i18n' // 匯入多國語系的功能
-// import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json' // 匯入繁體中文語系檔案
+
+import { Field as FieldComponent, Form as FormComponent, ErrorMessage, defineRule, configure, useField } from 'vee-validate' // 匯入 vee-validate 主套件
+import { required, email, min } from '@vee-validate/rules' // 匯入 vee-validate 相關規則
+import { localize, setLocale } from '@vee-validate/i18n' // 匯入多國語系的功能
+import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json' // 匯入繁體中文語系檔案
 
 // 定義驗證規則
-// defineRule('required', required)
-// defineRule('email', email)
-// defineRule('min', min)
-// configure({
-//   generateMessage: localize({ zh_TW: zhTW }), // 載入繁體中文語系
-//   validateOnInput: true // 當輸入任何內容直接進行驗證
-// })
+defineRule('required', required)
+defineRule('email', email)
+defineRule('min', min)
+configure({
+  generateMessage: localize({ zh_TW: zhTW }), // 載入繁體中文語系
+  validateOnInput: true // 當輸入任何內容直接進行驗證
+})
 // 設定預設語系
-// setLocale('zh_TW')
+setLocale('zh_TW')
 
-// 註冊 vee-validate 三個全域元件
-// app.component('FormComponent', Form)
-// app.component('FieldComponent', Field)
-// app.component('ErrorMessage', ErrorMessage)
+const config = useRuntimeConfig();
+const router = useRouter()
 
+const formData = ref({
+  user: {
+    email: '',
+    name: '',
+    tel: '',
+    address: ''
+  },
+  message: ''
+})
 
-
+const createOrder = async () => {
+  const order = {
+    data: formData.value
+  }
+  await useFetch(`${config.public.URL}/api/${config.public.PATH}/order`, {
+    method:'post',
+    body: order
+  })
+  .then((res)=>{
+    if(res.error.value){
+      console.log(res.error.value)
+    } else {
+      console.log(res.data.value.message)
+      router.push(`/checkout/${res.data.value.orderId}`)
+    }
+  })
+}
 
 const cartStore = useCartStore()
 cartStore.getCart()
-
-
-
 
 </script>
 
@@ -161,12 +182,12 @@ cartStore.getCart()
       </div>
       <div class="col-lg-6 p-3">
         <div class="p-4 shadow">
-            <!-- <form-component ref="form" v-slot="{ errors }" @submit="createOrder">
+            <form-component ref="form" v-slot="{ errors }" @submit="createOrder">
               <div class="mb-3">
                 <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
                 <field-component id="email" name="email" type="email" class="form-control" rules="email|required"
                       :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email"
-                      v-model="form.user.email"></field-component>
+                      v-model="formData.user.email"></field-component>
                 <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
               </div>
               <div class="row">
@@ -174,14 +195,14 @@ cartStore.getCart()
                   <label for="name" class="form-label">收件人姓名<span class="text-danger">*</span></label>
                   <field-component id="name" name="姓名" type="text" class="form-control"
                           :class="{ 'is-invalid': errors['姓名'] }" placeholder="請輸入姓名" rules="required"
-                          v-model="form.user.name"></field-component>
+                          v-model="formData.user.name"></field-component>
                   <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
                 </div>
                 <div class="col-lg-6 mb-3">
                   <label for="tel" class="form-label">收件人電話<span class="text-danger">*</span></label>
                   <field-component id="tel" name="電話" type="tel" class="form-control"
                           :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" :rules="isPhone"
-                          v-model="form.user.tel"></field-component>
+                          v-model="formData.user.tel"></field-component>
                   <ErrorMessage name="電話" class="invalid-feedback"></ErrorMessage>
                 </div>
               </div>
@@ -189,18 +210,18 @@ cartStore.getCart()
                 <label for="address" class="form-label">收件人地址<span class="text-danger">*</span></label>
                 <field-component id="address" name="地址" type="text" class="form-control"
                         :class="{ 'is-invalid': errors['地址'] }" placeholder="請輸入地址" rules="required"
-                        v-model="form.user.address"></field-component>
+                        v-model="formData.user.address"></field-component>
                 <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
               </div>
               <div class="mb-3">
                 <label for="message" class="form-label">留言</label>
-                <textarea id="message" class="form-control" cols="30" rows="3" v-model="form.message"></textarea>
+                <textarea id="message" class="form-control" cols="30" rows="3" v-model="formData.message"></textarea>
               </div>
               <button type="submit" class="btn standardBtn w-100"
-                      :disabled="Object.keys(errors).length > 0 || cartStore.cart.carts.length === 0">
+                      :disabled="Object.keys(errors)?.length > 0 || cartStore.cart.carts?.length === 0">
                       送出訂單
               </button>
-            </form-component> -->
+            </form-component>
         </div>
       </div>
     </div>
