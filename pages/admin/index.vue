@@ -1,5 +1,7 @@
 <script setup>
-
+definePageMeta({
+  layout: 'admin'
+})
 
 
 
@@ -7,7 +9,8 @@
 
 <template>
   <div>
-    Page: foo
+    <h1>Admin</h1>
+    
   </div>
 </template>
 
