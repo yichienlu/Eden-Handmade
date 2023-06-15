@@ -22,7 +22,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <nuxtLink to="/admin" class="nav-link link-light">商品管理</nuxtLink>
+            <nuxtLink to="/admin/products" class="nav-link link-light">商品管理</nuxtLink>
           </li>
           <li class="nav-item">
             <nuxtLink to="/admin/orders" class="nav-link link-light">訂單管理</nuxtLink>

@@ -9,7 +9,7 @@ definePageMeta({
 
 <template>
   <div>
-    orders
+    products
   </div>
 </template>
 
