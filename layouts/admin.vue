@@ -1,14 +1,16 @@
 <script setup>
-  const config = useRuntimeConfig();
-  const router = useRouter()
-  const checkSuccess = ref(true)
-
   const checkAdminStore = useCheckAdminStore()
   checkAdminStore.checkAdmin()
-  
+
+  onMounted(()=>{
+    if(!checkAdminStore.checkSuccess || !checkAdminStore.loggedIn){
+      window.location.href = '/login'
+    }
+  })
+
 </script>
 <template>
-  <div>
+  <div v-if="checkAdminStore.checkSuccess && checkAdminStore.loggedIn">
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
     <div class="container-fluid">
       <nuxtLink to="/admin" class="navbar-brand fw-bold">
@@ -40,6 +42,6 @@
       </div>
     </div>
   </nav>
-    <slot  v-if="checkAdminStore.checkSuccess && checkAdminStore.loggedIn" />
+    <slot />
   </div>
 </template>
