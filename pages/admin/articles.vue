@@ -9,7 +9,7 @@ definePageMeta({
 
 <template>
   <div>
-    Page: foo
+    news
   </div>
 </template>
 

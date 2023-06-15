@@ -1,7 +1,7 @@
 <script setup>
   const config = useRuntimeConfig();
   const router = useRouter()
-
+  const checkAdminStore = useCheckAdminStore()
   const user = ref({
     username:'',
     password:''
@@ -11,22 +11,30 @@
     await useFetch(`${config.public.URL}/admin/signin`, {
       method: 'post',
       body: user.value
-    }).then((res)=>{
+    })
+    .then((res)=>{
       if(res.error.value){
         console.log(res.error.value.data.message)
       } else {
         const { token, expired } = res.data.value
         document.cookie = `hexToken = ${token}; expires=${new Date(expired)}`
         
-
         console.log(res.data.value.message)
-        
-        window.location.href = '/'
+
+        redirect()
 
       }
     })
+    
   }
 
+  const redirect = async () =>{
+      await checkAdminStore.checkAdmin();
+      console.log(checkAdminStore.loggedIn)
+      console.log(checkAdminStore.checkSuccess)
+      // window.location.href = '/'
+      router.push({ path: "/" })
+    }
 
 </script>
 

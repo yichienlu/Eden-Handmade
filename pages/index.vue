@@ -30,6 +30,8 @@ const swiperOptions = ref({
 })
 
 // stores
+const checkAdminStore = useCheckAdminStore()
+
 const productsStore = useProductsStore()
 productsStore.getProducts()
 
@@ -55,6 +57,9 @@ onMounted(()=>{
   setTimeout(()=>{
     isLoading.value = false
   }, 1000)
+
+  console.log(checkAdminStore.loggedIn)
+  console.log(checkAdminStore.checkSuccess)
 })
 </script>
 

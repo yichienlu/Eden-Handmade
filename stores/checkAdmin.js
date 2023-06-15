@@ -9,10 +9,9 @@ export const useCheckAdminStore = defineStore("checkAdmin", () => {
 
   const checkAdmin = async () => {
     const token = useCookie('hexToken').value
-    // console.log(token)
-    // const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
-  
-    if (token) {
+    const cookie = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
+
+    if (cookie) {
       // 是否為登入狀態
       await useFetch(`${config.public.URL}/api/user/check`, {
         method: "post",
@@ -24,10 +23,10 @@ export const useCheckAdminStore = defineStore("checkAdmin", () => {
           loggedIn.value = false;
         } else {
           loggedIn.value = true;
-          // console.log(res.data.value?.message)
+          // console.log(res.data)
         }
       });
-  
+
       // 是否為管理者
       await useFetch(
         `${config.public.URL}/api/${config.public.PATH}/admin/coupons`,
@@ -47,15 +46,12 @@ export const useCheckAdminStore = defineStore("checkAdmin", () => {
           checkSuccess.value = false;
         } else {
           checkSuccess.value = true;
-          console.log(res.data.value?.message);
+          // console.log(res.data);
           console.log("管理員登入");
         }
       });
     }
   };
-  onMounted(()=>{
-    checkAdmin();
-  })
   
 
 return {loggedIn,checkSuccess,checkAdmin}

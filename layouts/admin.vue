@@ -1,11 +1,13 @@
 <script setup>
   const checkAdminStore = useCheckAdminStore()
-  checkAdminStore.checkAdmin()
+  // checkAdminStore.checkAdmin()
 
   onMounted(()=>{
+
     if(!checkAdminStore.checkSuccess || !checkAdminStore.loggedIn){
-      window.location.href = '/login'
+      // window.location.href = '/login'
     }
+
   })
 
 </script>
