@@ -7,7 +7,9 @@ export default defineNuxtConfig({
     },
   },
   css: ["@/assets/css/all.scss"],
-
+  plugins: [
+    '@/plugins/bootstrap.client.js'
+  ],
   modules: [
     "@pinia/nuxt",
     "@vee-validate/nuxt",

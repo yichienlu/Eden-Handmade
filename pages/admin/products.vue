@@ -4,7 +4,7 @@ definePageMeta({
 })
 const config = useRuntimeConfig();
 const products = ref([])
-const tempProduct = ref({
+let tempProduct = ref({
   imagesUrl:[]
 })
 const pagination = ref({})
@@ -21,18 +21,42 @@ const getProducts = async (page=1) => {
     headers: { Authorization: useCookie('hexToken').value },
   })
   .then((res)=>{
-    console.log(res)
     if(res.error.value){
       isLoading.value = false
       console.log(res.error.value.data.message)
     } else {
       isLoading.value = false
       products.value = res.data.value.products
-      console.log(res.data)
+      pagination.value = res.data.value.pagination
+      // console.log(res.data)
       console.log(res.data.value.message)
     }
   })
 }
+
+  const openAdminProductModal = (item) => {
+    // this.isLoading = true
+    tempProduct.value = JSON.parse(JSON.stringify(item))
+    // this.isLoading = false
+  }
+  const openDeleteModal = (item) => {
+    // this.isLoading = true
+    tempProduct = item
+    // this.isLoading = false
+  }
+  const deleteProduct = () => {
+    // this.isLoading = true
+    this.$http.delete(`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`)
+      .then((response) => {
+        // this.$httpMessageState(response, '刪除商品')
+        this.getProducts()
+        // this.isLoading = false
+      })
+  }
+
+
+
+
 onMounted(()=>{
   getProducts()
 })
@@ -96,7 +120,7 @@ onMounted(()=>{
     <pagination-component :pages="pagination" @get-items="getProducts"></pagination-component>
   </div>
   <!-- 產品modal -->
-  <!-- <admin-product-modal :product="tempProduct" :current-page="currentPage" ref="adminProductModal" @get-products="getProducts"></admin-product-modal> -->
+  <admin-product-modal :product="tempProduct" :current-page="currentPage" ref="adminProductModal" @get-products="getProducts"></admin-product-modal>
   <!-- 刪除modal -->
   <!-- <delete-modal :item="tempProduct" ref="deleteModal" @delete-item="deleteProduct"></delete-modal> -->
 </template>

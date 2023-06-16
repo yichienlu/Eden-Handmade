@@ -22,11 +22,12 @@
 </template>
 
 <script setup>
-  defineProps(['pages'])
+  let pages = defineProps(['pages'])
   const emit = defineEmits(['get-Items'])
   
   const updatePage = function(page){
     emit('get-Items', page)
   }
 
+console.log(pages)
 </script>
