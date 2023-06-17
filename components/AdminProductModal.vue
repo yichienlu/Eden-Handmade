@@ -8,7 +8,7 @@
   
   let tempProduct = ref({})
   const images = ref([])
-  let formData = ref('')
+  let formData = ref(null)
   let imgData = ref(null)
   const imgsData = ref([])
 
@@ -58,7 +58,6 @@
         console.log(res.error.value.data.message)
       }else{
         emit('get-products', currentPage.value)
-        // closeModal()
         console.log(tempProduct.value)
         console.log("SUCCESS")
 
@@ -67,32 +66,46 @@
     })
   }
 
-  const deleteProduct = async () => {
-    await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/product/${tempProduct.value.id}`,{
-      headers: { Authorization: useCookie('hexToken').value },
-      method:'delete',
-      body:{ data: tempProduct.value }
-    })
-    .then((res) => {
-      if(res.error.value){
-        console.log("ERROR")
-        console.log(res.error.value.data.message)
-      }else{
-        emit('get-products', currentPage.value)
-        // closeModal()
-        console.log(tempProduct.value)
-        console.log("SUCCESS")
+const createImages = () => {
+  tempProduct.value.imagesUrl = []
+  tempProduct.value.imagesUrl.push('')
+  imgsData.value.push('')
+}
 
-      }
-      
-    })
-  }
+const getImgData = (e) => {
+  const file = e.target.files[0]
+  formData.value = new FormData()
+  formData.value.append('file-to-upload', file)
+  imgData.value = formData.value
+}
 
-  // const adminProductModal = ref(null)
-  onMounted(() => {
-    
-    
+const uploadImage = async () => {
+  await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/upload`, {
+    method:'post',
+    headers: {
+      Authorization: useCookie('hexToken').value,
+      // 'Content-Type': 'multipart/form-data'
+    },
+    body: imgData.value
   })
+  .then((res)=>{
+    if(res.error.value){
+      console.log(res.error)
+    } else {
+      tempProduct.value.imageUrl = res.data.value.imageUrl
+    }
+
+  })
+}
+
+const getImgsData = (key) => {
+  // const file = this.$refs[`file${key}`][0].files[0]
+  console.log(this)
+  // formData.value = new FormData()
+  // formData.value.append('file-to-upload', file)
+  // imgsData.value[key] = this.formData
+}
+
 
 </script>
 <template>

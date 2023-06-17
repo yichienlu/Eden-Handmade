@@ -28,8 +28,8 @@ const getProducts = async (page=1) => {
       isLoading.value = false
       products.value = res.data.value.products
       pagination.value = res.data.value.pagination
-      // console.log(res.data)
-      console.log(res.data.value.message)
+      // console.log(pagination.value)
+      // console.log(res.data.value.message)
     }
   })
 }
@@ -44,14 +44,23 @@ const getProducts = async (page=1) => {
     tempProduct.value = item
     // this.isLoading = false
   }
-  const deleteProduct = () => {
-    // this.isLoading = true
-    this.$http.delete(`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`)
-      .then((response) => {
-        // this.$httpMessageState(response, '刪除商品')
-        this.getProducts()
-        // this.isLoading = false
-      })
+  const deleteProduct = async () => {
+    await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/product/${tempProduct.value.id}`,{
+      headers: { Authorization: useCookie('hexToken').value },
+      method:'delete',
+    })
+    .then((res) => {
+      if(res.error.value){
+        console.log("ERROR")
+        console.log(res.error.value.data.message)
+      }else{
+        getProducts(currentPage.value)
+        // closeModal()
+        console.log("SUCCESS")
+      }
+      
+    })
+
   }
 
 
