@@ -41,7 +41,7 @@ const getProducts = async (page=1) => {
   }
   const openDeleteModal = (item) => {
     // this.isLoading = true
-    tempProduct = item
+    tempProduct.value = item
     // this.isLoading = false
   }
   const deleteProduct = () => {

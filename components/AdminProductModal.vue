@@ -6,7 +6,6 @@
   const { product, currentPage } = toRefs(props)
   const emit = defineEmits(['get-products'])
   
-  const modal = {}
   let tempProduct = ref({})
   const images = ref([])
   let formData = ref('')
@@ -17,9 +16,6 @@
     tempProduct.value = product.value
   })
 
-  const closeModal = () =>{
-    modal.hide()
-  }
 
   // const file = ref(null)
   const clearRefs = () => {
@@ -43,7 +39,7 @@
         console.log(res.error)
       }else{
       //   emit('get-products', currentPage)
-        closeModal()
+        // closeModal()
       }
       // this.clearRefs()
       // this.$httpMessageState(response, '新增商品')
@@ -71,11 +67,29 @@
     })
   }
 
+  const deleteProduct = async () => {
+    await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/product/${tempProduct.value.id}`,{
+      headers: { Authorization: useCookie('hexToken').value },
+      method:'delete',
+      body:{ data: tempProduct.value }
+    })
+    .then((res) => {
+      if(res.error.value){
+        console.log("ERROR")
+        console.log(res.error.value.data.message)
+      }else{
+        emit('get-products', currentPage.value)
+        // closeModal()
+        console.log(tempProduct.value)
+        console.log("SUCCESS")
 
+      }
+      
+    })
+  }
 
-  const adminProductModal = ref(null)
+  // const adminProductModal = ref(null)
   onMounted(() => {
-    // modal = new Modal(adminProductModal)
     
     
   })
