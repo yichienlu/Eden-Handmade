@@ -122,7 +122,7 @@ onMounted(()=>{
   <!-- 產品modal -->
   <admin-product-modal :product="tempProduct" :current-page="currentPage" ref="adminProductModal" @get-products="getProducts"></admin-product-modal>
   <!-- 刪除modal -->
-  <!-- <delete-modal :item="tempProduct" ref="deleteModal" @delete-item="deleteProduct"></delete-modal> -->
+  <delete-modal :item="tempProduct" ref="deleteModal" @delete-item="deleteProduct"></delete-modal>
 </template>
 
 <style scoped></style>

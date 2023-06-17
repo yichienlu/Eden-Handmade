@@ -34,6 +34,7 @@ const getCoupons = async (page = 1) => {
 onMounted(()=>{
   getCoupons()
 })
+
 const openCouponModal = (item) => {
     // this.isLoading = true
     tempCoupon.value = JSON.parse(JSON.stringify(item))
@@ -48,7 +49,6 @@ const openCouponModal = (item) => {
     await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/coupon/${tempCoupon.value.id}`,{
       headers: { Authorization: useCookie('hexToken').value },
       method:'delete',
-      body:{ data: tempCoupon.value }
     })
     .then((res) => {
       if(res.error.value){
