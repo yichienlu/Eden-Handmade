@@ -17,17 +17,7 @@
   })
 
 
-  // const file = ref(null)
-  const clearRefs = () => {
-  //   file.value = null
-  //   if (Array.isArray(tempProduct.imagesUrl)) {
-  //     images = [...document.querySelectorAll('[data-images]')]
-  //     images.forEach(function (item) {
-  //       item.value = null
-  //     })
-  //   }
-  }
-   const addProduct = async () => {
+  const addProduct = async () => {
     await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/product`,{
       headers: { Authorization: useCookie('hexToken').value },
       method:'post',
@@ -71,12 +61,13 @@ const createImages = () => {
   tempProduct.value.imagesUrl.push('')
   imgsData.value.push('')
 }
-
+const fileRef = ref(null)
 const getImgData = (e) => {
-  const file = e.target.files[0]
+  const file = fileRef.value.files[0]
   formData.value = new FormData()
   formData.value.append('file-to-upload', file)
   imgData.value = formData.value
+  formData.value = null
 }
 
 const uploadImage = async () => {
@@ -94,18 +85,43 @@ const uploadImage = async () => {
     } else {
       tempProduct.value.imageUrl = res.data.value.imageUrl
     }
-
   })
 }
 
+const filesRef = ref([])
 const getImgsData = (key) => {
-  // const file = this.$refs[`file${key}`][0].files[0]
-  console.log(this)
-  // formData.value = new FormData()
-  // formData.value.append('file-to-upload', file)
-  // imgsData.value[key] = this.formData
+  const file = filesRef.value[key].files[0]
+  formData.value = new FormData()
+  formData.value.append('file-to-upload', file)
+  imgsData.value[key] = formData.value
+  formData.value = null
 }
 
+const uploadImages = async (key) => {
+  await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/upload`, {
+    method:'post',
+    headers: {
+      Authorization: useCookie('hexToken').value,
+      // 'Content-Type': 'multipart/form-data'
+    },
+    body: imgsData.value[key]
+  })
+  .then((res)=>{
+    if(res.error.value){
+      console.log(res.error)
+    } else {
+      tempProduct.value.imagesUrl[key] = res.data.value.imageUrl
+      imgsData[key] = null
+    }
+
+  })
+}
+const clearRefs = () => {
+  fileRef.value.value = null
+  if (Array.isArray(filesRef.value)){
+    filesRef.value.forEach(item => item.value = null)
+  }
+}
 
 </script>
 <template>
@@ -187,7 +203,7 @@ const getImgsData = (key) => {
                 <label for="imageUrl" class="form-label">圖片網址</label>
                 <input id="imageUrl" v-model="tempProduct.imageUrl" type="text" class="form-control form-control-sm mb-2" placeholder="請輸入圖片連結">
                 <div class="input-group input-group-sm mb-2">
-                  <input type="file" class="form-control" id="input-imageUrl" aria-label="Upload" ref="file" @change="getImgData">
+                  <input type="file" class="form-control" id="input-imageUrl" aria-label="Upload" ref="fileRef" @change="getImgData">
                   <button class="btn btn-outline-secondary" :disabled="!imgData" type="button" id="upload-imageUrl" @click="uploadImage">上傳</button>
                 </div>
                 <img class="img-fluid" :src="tempProduct.imageUrl" alt="主要圖片">
@@ -199,7 +215,7 @@ const getImgsData = (key) => {
                   <input :id="`imageUrl${key}`" v-model="tempProduct.imagesUrl[key]" type="text" class="form-control form-control-sm mb-2"
                     placeholder="請輸入圖片連結">
                 <div class="input-group input-group-sm mb-2">
-                  <input type="file" class="form-control" id="`input-imagesUrl${key}`" aria-label="Upload" :ref="`file${key}`" data-images="imagesUrl" @change="getImgsData(key)">
+                  <input type="file" class="form-control" id="`input-imagesUrl${key}`" aria-label="Upload" ref="filesRef" data-images="imagesUrl" @change="getImgsData(key)">
                   <button class="btn btn-outline-secondary" :disabled="!imgsData[key]" type="button" id="`upload-imagesUrl${key}`" @click="uploadImages(key)">上傳</button>
                 </div>
                 <img class="img-fluid" :src="image" :alt="`次要圖片${key+1}`">
