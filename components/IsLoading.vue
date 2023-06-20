@@ -13,14 +13,14 @@
 
 <style scoped>
 .logo {
-  animation: logo-animation 1s linear infinite
+  animation: logo-animation 2s linear infinite
 }
 @keyframes logo-animation {
   0% {
-    transform: rotate(0deg)
+    transform: rotateY(0deg)
   }
   100% {
-    transform: rotate(360deg)
+    transform: rotateY(360deg)
   }
 }
 </style>

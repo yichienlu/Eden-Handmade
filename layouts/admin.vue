@@ -1,7 +1,7 @@
 <script setup>
+  const route = useRoute()
   const router = useRouter()
   const checkAdminStore = useCheckAdminStore()
-  // checkAdminStore.checkAdmin()
 
   onMounted(()=>{
   checkAdminStore.checkAdmin()
@@ -9,6 +9,9 @@
 
 </script>
 <template>
+  <Head>
+    <Title>{{ route.name }}</Title>
+  </Head>
   <div v-if="checkAdminStore.checkSuccess && checkAdminStore.loggedIn">
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
       <div class="container-fluid">
@@ -43,7 +46,4 @@
     </nav>
     <slot />
   </div>
-  <!-- <div v-else>
-    <nuxt-link to="/login">管理員登入</nuxt-link>
-  </div> -->
 </template>
