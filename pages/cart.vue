@@ -1,4 +1,5 @@
 <script setup>
+const { $currency } = useNuxtApp()
 
 const cartStore = useCartStore()
 cartStore.getCart()
@@ -82,13 +83,13 @@ cartStore.getCart()
                   </div>
                   <div>
                     <div v-if="item.product.price === item.product.origin_price" class="text-danger">
-                      {{ item.product.price * item.qty }} 元
+                      {{ $currency(item.product.price * item.qty) }} 元
                     </div>
                     <div v-else>
                       <small>
-                        <del>{{ item.product.origin_price * item.qty }} 元</del>
+                        <del>{{ $currency(item.product.origin_price * item.qty) }} 元</del>
                       </small>
-                      <span class="text-danger ms-2">{{ item.product.price * item.qty }} 元</span>
+                      <span class="text-danger ms-2">{{ $currency(item.product.price * item.qty) }} 元</span>
                     </div>
                   </div>
                 </div>
@@ -125,13 +126,13 @@ cartStore.getCart()
                   </td>
                   <td class="text-center">
                     <div v-if="item.product.price === item.product.origin_price" class="text-danger">
-                      {{ item.product.price }} 元
+                      {{ $currency(item.product.price) }} 元
                     </div>
                     <div v-else>
                       <small>
-                        <del>{{ item.product.origin_price }} 元</del>
+                        <del>{{ $currency(item.product.origin_price) }} 元</del>
                       </small>
-                      <div class="text-danger">{{ item.product.price }} 元</div>
+                      <div class="text-danger">{{ $currency(item.product.price) }} 元</div>
                     </div>
                   </td>
                   <td>
@@ -160,7 +161,7 @@ cartStore.getCart()
                     </div>
                   </td>
                   <td class="text-end text-danger">
-                    {{ item.total }} 元
+                    {{ $currency(item.total) }} 元
                   </td>
                 </tr>
               </tbody>
@@ -175,11 +176,11 @@ cartStore.getCart()
             <div class="text-end shadow p-3 p-lg-5">
               <p class="d-flex justify-content-between">
                 <span>總計：</span>
-                <span>{{ cartStore.cart.total }} 元</span>
+                <span>{{ $currency(cartStore.cart.total) }} 元</span>
               </p>
               <p v-if="cartStore.cart.carts?.[0].coupon" class="text-danger d-flex justify-content-between">
                 <span>優惠券折扣：</span>
-                <span>- {{ cartStore.cart.total - Math.floor(cartStore.cart.final_total) }} 元</span>
+                <span>- {{ $currency(cartStore.cart.total - Math.floor(cartStore.cart.final_total)) }} 元</span>
               </p>
               <p v-if="cartStore.cart.carts?.[0].coupon" class="text-end">
                 <small class="text-danger">
@@ -188,7 +189,7 @@ cartStore.getCart()
               </p>
               <p class="d-flex justify-content-between">
                 <span>折扣價：</span>
-                <span class="fw-bold">{{ cartStore.cart.final_total }} 元</span>
+                <span class="fw-bold">{{ $currency(cartStore.cart.final_total) }} 元</span>
               </p>
               <div class="input-group my-3 input-group-sm">
                 <input

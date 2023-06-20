@@ -18,6 +18,7 @@
   // cart
   const cartStore = useCartStore()
 
+const { $currency } = useNuxtApp()
 </script>
 
 <template>
@@ -67,11 +68,11 @@
               <div class="card-footer d-flex align-items-center justify-content-between mt-2 p-0 bg-transparent border-0">
                 <div>
                   <div class="text-primary" v-if="product.price===product.origin_price">
-                      $ {{ product.origin_price }}
+                      $ {{ $currency(product.origin_price) }}
                   </div>
                   <div v-else>
-                    <span class="text-danger me-1">$ {{ product.price }} </span>
-                    <del class="text-muted" style="font-size: 0.5rem">$ {{ product.origin_price }} </del>
+                    <span class="text-danger me-1">$ {{ $currency(product.price) }} </span>
+                    <del class="text-muted" style="font-size: 0.5rem">$ {{ $currency(product.origin_price) }} </del>
                   </div>
                 </div>
                 <button type="button" style="z-index: 980" class="btn btn-sm standardBtn" @click="cartStore.addToCart(product.id)" :disabled="isLoading">

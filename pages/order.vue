@@ -16,6 +16,7 @@ configure({
 // 設定預設語系
 setLocale('zh_TW')
 
+const { $currency, $date, $time } = useNuxtApp()
 const config = useRuntimeConfig();
 const router = useRouter()
 
@@ -106,22 +107,22 @@ cartStore.getCart()
               <small>{{ item.product.description }}</small>
               <div>
                 <span v-if="item.product.price === item.product.origin_price" class="text-danger">
-                  {{ item.product.price * item.qty }} 元
+                  {{ $currency(item.product.price * item.qty) }} 元
                 </span>
                 <span v-else>
                   <small>
-                    <del>{{ item.product.origin_price * item.qty }} 元</del>
+                    <del>{{ $currency(item.product.origin_price * item.qty) }} 元</del>
                   </small>
-                  <span class="text-danger ms-2">{{ item.product.price * item.qty }} 元</span>
+                  <span class="text-danger ms-2">{{ $currency(item.product.price * item.qty) }} 元</span>
                 </span> x {{item.qty}} {{ item.product.unit }}
               </div>
             </div>
             <div class="ms-auto">
-              {{ item.total }} 元
+              {{ $currency(item.total) }} 元
             </div>
           </div>
-          <div class="text-end border-top border-2 border-primary pt-2">總計：{{ cartStore.cart.total }} 元</div>
-          <div class="text-danger text-end pt-2">折扣價：{{ Math.floor(cartStore.cart.final_total) }} 元</div>
+          <div class="text-end border-top border-2 border-primary pt-2">總計：{{ $currency(cartStore.cart.total) }} 元</div>
+          <div class="text-danger text-end pt-2">折扣價：{{ $currency(Math.floor(cartStore.cart.final_total)) }} 元</div>
           <div class="text-end">
             <small v-if="cartStore.cart.carts?.[0]?.coupon" class="text-danger">(已套用「{{ cartStore.cart.carts?.[0].coupon.title }}」優惠券：{{ cartStore.cart.carts?.[0].coupon.code }})</small>
           </div>
@@ -147,11 +148,11 @@ cartStore.getCart()
                     <div class="fw-bold">{{ item.product.title }}</div>
                     <small>{{ item.product.description }}</small>
                     <div v-if="item.product.price===item.product.origin_price">
-                      {{ item.product.price }} 元
+                      {{ $currency(item.product.price) }} 元
                     </div>
                     <div v-else>
-                      <small><del>{{ item.product.origin_price }} 元</del></small>
-                      <span class="ms-2">{{ item.product.price }} 元</span>
+                      <small><del>{{ $currency(item.product.origin_price) }} 元</del></small>
+                      <span class="ms-2">{{ $currency(item.product.price) }} 元</span>
                     </div>
                   </div>
               </td>
@@ -159,19 +160,19 @@ cartStore.getCart()
                 {{ item.qty }} {{ item.product.unit }}
               </td>
               <td class="text-end">
-                {{ item.total }} 元
+                {{ $currency(item.total) }} 元
               </td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <td class="text-end">總計</td>
-              <td colspan="3" class="text-end">{{ cartStore.cart.total }}</td>
+              <td colspan="3" class="text-end">{{ $currency(cartStore.cart.total) }}</td>
             </tr>
             <tr>
               <td class="text-end text-success">折扣價</td>
               <td colspan="3" class="text-end text-success">
-                {{ Math.floor(cartStore.cart.final_total) }} <br>
+                {{ $currency(Math.floor(cartStore.cart.final_total)) }} <br>
                 <small v-if="cartStore.cart.carts?.[0]?.coupon" class="text-mute">(已套用「{{ cartStore.cart.carts?.[0].coupon.title }}」優惠券：{{ cartStore.cart.carts?.[0].coupon.code }})</small>
               </td>
             </tr>

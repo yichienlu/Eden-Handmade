@@ -6,6 +6,7 @@
 
     articlesStore.getArticles()
 
+    const { $date } = useNuxtApp()
 
 </script>
 
@@ -22,7 +23,7 @@
             <div class="accordion-item">
               <h2 class="accordion-header" :key="article.id">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="`#collapse${article.id}`" aria-expanded="true" :aria-controls="`collapse${article.id}`">
-                  <small class="me-3">{{ article.create_at }}</small>
+                  <small class="me-3">{{ $date(article.create_at) }}</small>
                   <!-- <small class="me-3">{{ new Intl.DateTimeFormat('zh-TW', {dateStyle: 'medium'}).format(article.create_at *1000) }}</small> -->
                   <span>{{ article.title }}</span>
                 </button>

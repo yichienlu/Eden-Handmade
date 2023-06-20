@@ -1,5 +1,6 @@
 <script setup>
   const config = useRuntimeConfig();
+  const { $date } = useNuxtApp()
 
   const article = ref({})
 
@@ -40,8 +41,7 @@ getArticle()
           <article class="col">
             <h2>{{ article.title }}</h2>
             <p>
-              <!-- <small class="text-muted">{{ new Intl.DateTimeFormat('zh-TW', {dateStyle: 'medium'}).format(article.create_at*1000) }}</small> -->
-              <small class="text-muted">{{ article.create_at }}</small>
+              <small class="text-muted">{{ $date(article.create_at) }}</small>
             </p>
             <img v-if="article.imageUrl" :src="article.imageUrl" alt="文章配圖" class="img-fluid mb-3">
             <div v-html="article.content"></div>

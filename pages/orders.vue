@@ -1,5 +1,6 @@
 <script setup>
   const config = useRuntimeConfig();
+  const { $currency, $date, $time } = useNuxtApp()
 
   const orders = ref([])
   const pagination = ref({})
@@ -33,10 +34,8 @@
           <dd class="col-sm-9">{{ order.id }}</dd>
           <dt class="col-sm-3">訂單成立時間</dt>
           <dd class="col-sm-9">
-            <p>{{ order.create_at }} <br>
-            {{ order.create_at }}</p>
-            <!-- <p>{{ $filters.date(order.create_at) }} <br>
-            {{ $filters.time(order.create_at) }}</p> -->
+            <p>{{ $date(order.create_at) }} <br>
+            {{ $time(order.create_at) }}</p>
           </dd>
           <dt class="col-sm-3">訂單內容</dt>
           <dd class="col-sm-9">
@@ -54,7 +53,7 @@
               {{ order.user.address }}
           </dd>
           <dt class="col-sm-3">金額</dt>
-          <dd class="col-sm-9">{{ order.total }} 元</dd>
+          <dd class="col-sm-9">{{ $currency(order.total) }} 元</dd>
           <dt class="col-sm-3">付款狀態</dt>
           <dd class="col-sm-9">
             <div v-if="!order.is_paid">
@@ -87,10 +86,8 @@
         <tr v-for="order in orders" :key="order.id">
           <td>
             <p>{{ order.id }}</p>
-            <p>{{ order.create_at }} <br>
-            {{ order.create_at }}</p>
-            <!-- <p>{{ $filters.date(order.create_at) }} <br>
-            {{ $filters.time(order.create_at) }}</p> -->
+            <p>{{ $date(order.create_at) }} <br>
+            {{ $time(order.create_at) }}</p>
           </td>
           <td>
             <ul class="list-unstyled">
@@ -98,7 +95,7 @@
                 {{ product.product.title }} x {{ product.qty }}
               </li>
             </ul>
-            {{ order.total }} 元
+            {{ $currency(order.total) }} 元
           </td>
           <td>
             {{ order.user.name }} <br>
