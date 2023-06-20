@@ -28,6 +28,7 @@ const swiperOptions = ref({
     }
   }
 })
+const { $date } = useNuxtApp()
 
 // stores
 const checkAdminStore = useCheckAdminStore()
@@ -207,7 +208,7 @@ onMounted(()=>{
           </thead>
           <tbody>
             <tr v-for="article in news" :key="article.id">
-              <th scope="row">{{ article.create_at }}</th>
+              <th scope="row">{{ $date(article.create_at) }}</th>
               <td>
                 <nuxtLink
                   :to="`/news/${article.id}`"

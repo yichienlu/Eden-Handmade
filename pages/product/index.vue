@@ -1,5 +1,6 @@
 <script setup>
   const config = useRuntimeConfig();
+  const { $currency } = useNuxtApp()
 
   const isLoading = ref(false)
   // Products
@@ -18,7 +19,6 @@
   // cart
   const cartStore = useCartStore()
 
-const { $currency } = useNuxtApp()
 </script>
 
 <template>

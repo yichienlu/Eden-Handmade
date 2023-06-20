@@ -49,5 +49,7 @@ const logOut = () => {
   // router.go(-1)
 };
 
-
+onMounted(()=>{
+  checkAdminStore.checkAdmin()
+})
 </script>
