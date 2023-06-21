@@ -38,7 +38,10 @@ const editArticle = async () => {
 
     })
 }
-
+const createTags = () => {
+  tempArticle.value.tags = []
+  tempArticle.value.tags.push('')
+}
 
 </script>
 
