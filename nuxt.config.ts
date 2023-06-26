@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  // app: {
+  //   baseURL: '/Eden-Handmade-Soap/' // baseURL: '/<repository>/'
+  // },
   runtimeConfig: {
     public: {
       URL: process.env.VUE_APP_API,
