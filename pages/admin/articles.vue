@@ -27,12 +27,42 @@ const getArticles = async (page = 1) => {
       isLoading.value = false
       articles.value = res.data.value.articles
       pagination.value = res.data.value.pagination
-      // console.log(res.data)
-      console.log(res.data.value.message)
     }
   })
 
 }
+
+const getArticle = async (id) => {
+  await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/article/${id}`,
+  {
+    headers: { Authorization: useCookie('hexToken').value },
+  })
+  .then((res)=>{
+    if(res.error.value){
+      isLoading.value = false
+      console.log(res.error.value.data.message)
+    } else {
+      isLoading.value = false
+      tempArticle.value = JSON.parse(JSON.stringify(res.data.value.article))
+    }
+  })
+}
+const openDeleteModal = (item) => {
+  tempArticle.value = item
+}
+const deleteArticle = () => {
+  // this.$http.delete(`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${this.tempArticle.id}`)
+  //   .then((response) => {
+  //     this.$httpMessageState(response, '刪除貼文')
+  //     this.getArticles()
+  //     this.isLoading = false
+  //   })
+  //   .catch((error) => {
+  //     this.$httpMessageState(error.response, '刪除貼文')
+  //     this.isLoading = false
+  //   })
+}
+
 onMounted(()=>{
   getArticles()
 })
@@ -87,7 +117,7 @@ onMounted(()=>{
     <pagination-component :pages="pagination" @get-items="getArticles"></pagination-component>
   </div>
   <!-- modal -->
-  <!-- <admin-article-modal :article="tempArticle" :current-page="currentPage" ref="adminArticleModal" @get-articles="getArticles"></admin-article-modal> -->
+  <admin-article-modal :article="tempArticle" :current-page="currentPage" ref="adminArticleModal" @get-articles="getArticles"></admin-article-modal>
   <!-- 刪除modal -->
   <delete-modal :item="tempArticle" ref="deleteModal" @delete-item="deleteArticle"></delete-modal>
   </div>

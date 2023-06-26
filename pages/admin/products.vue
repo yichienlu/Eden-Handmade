@@ -15,7 +15,6 @@ let isLoading = ref(false)
 const getProducts = async (page=1) => {
   isLoading.value = true
   currentPage.value = page
-
   await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/products/?page=${page}`,
   {
     headers: { Authorization: useCookie('hexToken').value },

@@ -1,7 +1,21 @@
 <script setup>
-const tempArticle = ref({})
-const tags = ref([])
-let create_at = ref(0)
+  const props = defineProps(['article', 'currentPage'])
+  const { article, currentPage } = toRefs(props)
+  const emit = defineEmits(['get-articles'])
+
+let tempArticle = ref({})
+let create_at = ref('')
+
+watch(article, ()=>{
+  tempArticle.value = article.value
+  const dateAndTime = new Date(tempArticle.value.create_at * 1000)
+    .toISOString().split('T');
+    [create_at.value] = dateAndTime
+})
+
+watch(create_at, ()=>{
+  tempArticle.value.create_at = Math.floor(new Date(create_at) / 1000)
+})
 
 const addArticle = async () => {
   await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/article`),{
@@ -14,11 +28,9 @@ const addArticle = async () => {
       if(res.error.value){
         console.log(res.error)
       }else{
-      //   emit('get-products', currentPage)
-        // closeModal()
+
       }
-      // this.clearRefs()
-      // this.$httpMessageState(response, '新增商品')
+
 
     })
 }
@@ -33,7 +45,7 @@ const editArticle = async () => {
       if(res.error.value){
         console.log(res.error)
       }else{
-
+        
       }
 
     })
@@ -42,6 +54,9 @@ const createTags = () => {
   tempArticle.value.tags = []
   tempArticle.value.tags.push('')
 }
+
+
+
 
 </script>
 
@@ -69,7 +84,7 @@ const createTags = () => {
                   placeholder="請輸入標題"
                 />
               </div>
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="image" class="form-label">輸入圖片網址</label>
                 <input
                   type="text"
@@ -78,7 +93,7 @@ const createTags = () => {
                   v-model="tempArticle.image"
                   placeholder="請輸入圖片連結"
                 />
-              </div>
+              </div> -->
               <div class="mb-3">
                 <label for="author" class="form-label">作者</label>
                 <input
@@ -130,11 +145,17 @@ const createTags = () => {
                 ></textarea>
               </div>
               <div class="mb-3">
-                <ckeditor
+                <label for="description" class="form-label">文章內容</label>
+                <!-- <ckeditor
                   :editor="editor"
                   :config="editorConfig"
                   v-model="tempArticle.content"
-                ></ckeditor>
+                ></ckeditor> -->
+                <textarea
+                  v-model="tempArticle.content"
+                  placeholder="請輸入文章內容"
+
+                ></textarea>
               </div>
               <div class="mb-3">
                 <div class="form-check">
