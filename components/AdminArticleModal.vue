@@ -1,5 +1,9 @@
 <script setup>
+const config = useRuntimeConfig();
+
+
   const props = defineProps(['article', 'currentPage'])
+
   const { article, currentPage } = toRefs(props)
   const emit = defineEmits(['get-articles'])
 
@@ -18,28 +22,28 @@ watch(create_at, ()=>{
 })
 
 const addArticle = async () => {
-  await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/article`),{
+  await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/article`,{
       headers: { Authorization: useCookie('hexToken').value },
       method:'post',
-      body:{ data: tempArticle }
-    }
+      body:{ data: tempArticle.value }
+    })
     .then((res) => {
       console.log(res)
       if(res.error.value){
-        console.log(res.error)
+        console.log(res.error.value.message)
       }else{
-
+        
       }
 
 
     })
 }
 const editArticle = async () => {
-  await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/article/${tempArticle.value.id}`),{
+  await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/article/${tempArticle.value.id}`,{
       headers: { Authorization: useCookie('hexToken').value },
       method:'put',
       body:{ data: tempArticle.value }
-    }
+    })
     .then((res) => {
       console.log(res)
       if(res.error.value){
@@ -55,8 +59,15 @@ const createTags = () => {
   tempArticle.value.tags.push('')
 }
 
-
-
+// 編輯器
+import Editor from '@tinymce/tinymce-vue'
+const init = {
+  skin: 'oxide',
+  language: 'zh_TW',
+  menubar: false,
+  branding: false,
+  toolbar: 'undo redo | forecolor backcolor bold italic underline | alignleft aligncenter alignright'
+}
 
 </script>
 
@@ -151,11 +162,10 @@ const createTags = () => {
                   :config="editorConfig"
                   v-model="tempArticle.content"
                 ></ckeditor> -->
-                <textarea
-                  v-model="tempArticle.content"
-                  placeholder="請輸入文章內容"
 
-                ></textarea>
+
+                <Editor v-model="tempArticle.content" :init="init"/>
+
               </div>
               <div class="mb-3">
                 <div class="form-check">
