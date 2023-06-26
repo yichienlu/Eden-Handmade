@@ -18,7 +18,7 @@ watch(article, ()=>{
 })
 
 watch(create_at, ()=>{
-  tempArticle.value.create_at = Math.floor(new Date(create_at) / 1000)
+  tempArticle.value.create_at = Math.floor(new Date(create_at.value) / 1000)
 })
 
 const addArticle = async () => {
@@ -28,11 +28,11 @@ const addArticle = async () => {
       body:{ data: tempArticle.value }
     })
     .then((res) => {
-      console.log(res)
       if(res.error.value){
-        console.log(res.error.value.message)
+        console.log(res.error.value.data.message)
       }else{
-        
+        console.log(res.data.value.message)
+        emit('get-articles', currentPage.value)
       }
 
 
@@ -45,10 +45,11 @@ const editArticle = async () => {
       body:{ data: tempArticle.value }
     })
     .then((res) => {
-      console.log(res)
       if(res.error.value){
-        console.log(res.error)
+        console.log(res.error.value.data.message)
       }else{
+        console.log(res.data.value.message)
+        emit('get-articles', currentPage.value)
         
       }
 
@@ -62,7 +63,6 @@ const createTags = () => {
 // 編輯器
 import Editor from '@tinymce/tinymce-vue'
 const init = {
-  skin: 'oxide',
   language: 'zh_TW',
   menubar: false,
   branding: false,
@@ -198,3 +198,13 @@ const init = {
     </div>
   </div>
 </template>
+
+<style scoped>
+    .tox.tox-silver-sink.tox-tinymce-aux .tox-notifications-container {
+      display: none !important;
+      position: absolute !important;  
+      z-index: 0 !important;
+      transform: rotate(95deg);
+      color: red;
+    }
+</style>

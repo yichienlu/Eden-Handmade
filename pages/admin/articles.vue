@@ -50,17 +50,19 @@ const getArticle = async (id) => {
 const openDeleteModal = (item) => {
   tempArticle.value = item
 }
-const deleteArticle = () => {
-  // this.$http.delete(`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${this.tempArticle.id}`)
-  //   .then((response) => {
-  //     this.$httpMessageState(response, '刪除貼文')
-  //     this.getArticles()
-  //     this.isLoading = false
-  //   })
-  //   .catch((error) => {
-  //     this.$httpMessageState(error.response, '刪除貼文')
-  //     this.isLoading = false
-  //   })
+const deleteArticle = async () => {
+  await useFetch(`${config.public.URL}/api/${config.public.PATH}/admin/article/${tempArticle.value.id}`,{
+      headers: { Authorization: useCookie('hexToken').value },
+      method:'delete'
+    })
+    .then((res) => {
+      if(res.error.value){
+        console.log(res.error.value.data.message)
+      }else{
+        console.log(res.data.value.message)
+        getArticles(currentPage.value)
+      }
+    })
 }
 
 onMounted(()=>{
