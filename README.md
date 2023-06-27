@@ -41,5 +41,6 @@ npm run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
-Deployment:
-https://github.com/lucpotage/nuxt-github-pages
+## Deployment
+- https://github.com/lucpotage/nuxt-github-pages
+- https://alejandrosuarez.eu/blog/how-to-deploy-nuxt3-app-in-github-pages/
