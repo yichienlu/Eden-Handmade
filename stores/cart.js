@@ -4,9 +4,9 @@ export const  useCartStore = defineStore("cart", () => {
   const config = useRuntimeConfig();
 
   let cart = ref([])
-
-
+  let isLoading = ref(true)
   const getCart = async () => {
+    isLoading.value = true
     const response = await fetch(`${config.public.URL}/api/${config.public.PATH}/cart`)
     .then((res)=>res.json())
     .catch((err)=>err.json())
@@ -17,7 +17,7 @@ export const  useCartStore = defineStore("cart", () => {
     } else {
       console.log(response.message)
     }
-
+    isLoading.value = false
   }
 
   const addToCart = async (id, qty=1) => {
@@ -126,5 +126,5 @@ export const  useCartStore = defineStore("cart", () => {
 
   }
 
-  return { cart, getCart, addToCart, removeCartItem, clearCart, updateCartItem, addCouponCode, couponCode };
+  return { cart, isLoading, getCart, addToCart, removeCartItem, clearCart, updateCartItem, addCouponCode, couponCode };
 })

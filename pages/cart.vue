@@ -9,7 +9,7 @@ cartStore.getCart()
 
 <template>
   <div>
-    <!-- <Loading-component :active="isLoading"></Loading-component> -->
+    <IsLoading :class="{'d-none':!cartStore.isLoading}" />
     <div class="container py-5">
       <div class="mb-5 row justify-content-center">
         <div class="col col-md-10 col-lg-8">
