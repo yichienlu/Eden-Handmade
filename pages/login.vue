@@ -1,4 +1,8 @@
 <script setup>
+  definePageMeta({
+    layout: 'login'
+  })
+
   const config = useRuntimeConfig();
   const router = useRouter()
   const checkAdminStore = useCheckAdminStore()
