@@ -79,8 +79,8 @@ onMounted(()=>{
           </div>
         </div>
       </template>
+      <button class="btn standardBtn" @click="favoriteStore.clearFavorite">全部清除</button>
     </div>
-    <button class="btn standardBtn" @click="favoriteStore.clearFavorite">全部清除</button>
   </div>
 </template>
 
