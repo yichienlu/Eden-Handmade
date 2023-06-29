@@ -9,7 +9,7 @@ onMounted(()=>{
 
 
 let allProducts = ref([])
-let isLoading = ref(false)
+let isLoading = ref(true)
 const getAllProducts = async () => {
   isLoading.value = true;
   const response = await fetch(`${config.public.URL}/api/${config.public.PATH}/products/all`)
@@ -31,7 +31,7 @@ onMounted(()=>{
 </script>
 
 <template>
- <!-- <Loading-component :active="isLoading"></Loading-component> -->
+  <IsLoading :class="{'d-none':!isLoading}" />
   <div class="img-cover position-relative" style="height: 25vh; background-image:url('https://images.unsplash.com/photo-1624459311940-0137c5ae2aa8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
     <h1 class="position-absolute top-100 start-50 translate-middle fw-bolder fst-italic dancing" style="font-size: 4rem">Favorites</h1>
   </div>

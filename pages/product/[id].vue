@@ -2,10 +2,10 @@
 const config = useRuntimeConfig();
 const { id } = useRoute().params
 const favoriteStore = useFavoriteStore()
+let isLoading = ref(true);
 
 // product info
 const product = ref({})
-let isLoading = ref(false);
 const getProduct = async (id) => {
   isLoading.value = true;
   const response = await fetch(`${config.public.URL}/api/${config.public.PATH}/product/${id}`)
@@ -17,7 +17,7 @@ const getProduct = async (id) => {
   } else {
     console.log(response.message)
   }
-  // isLoading.value = false;
+  isLoading.value = false;
 
 }
 onMounted(()=>{
@@ -38,7 +38,7 @@ const cartStore = useCartStore()
 </script>
 
 <template>
-   <!-- <Loading-component :active="isLoading"></Loading-component> -->
+  <IsLoading :class="{'d-none':!isLoading}" />
   <div class="container py-5">
     <div class="row flex-sm-row-reverse">
       <div class="col-sm-8 position-relative">

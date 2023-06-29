@@ -2,7 +2,6 @@
   const config = useRuntimeConfig();
   const { $currency } = useNuxtApp()
 
-  const isLoading = ref(false)
   // Products
   const productsStore = useProductsStore()
   onMounted(()=>{
@@ -22,7 +21,7 @@
 </script>
 
 <template>
-  <!-- <Loading-component :active="isLoading"></Loading-component> -->
+  <IsLoading :class="{'d-none':!productsStore.isLoading}" />
   <div class="img-cover position-relative" style="height: 25vh; background-image:url('/images/products.png');">
     <h1 class="position-absolute top-100 start-50 translate-middle fw-bolder fst-italic dancing" style="font-size: 4rem">Products</h1>
   </div>
@@ -75,7 +74,7 @@
                     <del class="text-muted" style="font-size: 0.5rem">$ {{ $currency(product.origin_price) }} </del>
                   </div>
                 </div>
-                <button type="button" style="z-index: 980" class="btn btn-sm standardBtn" @click="cartStore.addToCart(product.id)" :disabled="isLoading">
+                <button type="button" style="z-index: 980" class="btn btn-sm standardBtn" @click="cartStore.addToCart(product.id)" :disabled="productsStore.isLoading">
                     加入購物車
                 </button>
               </div>

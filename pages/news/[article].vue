@@ -1,10 +1,11 @@
 <script setup>
   const config = useRuntimeConfig();
   const { $date } = useNuxtApp()
+  
+  let isLoading = ref(true);
 
   const article = ref({})
-
-  const getArticle = async () => {
+    const getArticle = async () => {
     await useFetch(`${config.public.URL}/api/${config.public.PATH}/article/${useRoute().params.article}`)
     .then((res)=>{
       if(res.error.value){
@@ -13,6 +14,8 @@
         article.value = res.data._rawValue.article
       }
     })
+    isLoading.value = false;
+
   }
 
 // onMounted(()=>{
@@ -20,11 +23,12 @@
 // })
 getArticle()
 
+
 </script>
 
 <template>
- <!-- <Loading-component :active="isLoading"></Loading-component> -->
-  <div class="container">
+   <IsLoading :class="{'d-none':!isLoading}" />
+   <div class="container">
     <div class="row justify-content-around">
       <div class="col-md-4 border img-cover" style="background-image:url('https://images.unsplash.com/photo-1618840392854-0adfa1a86798?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')">
         <div class="d-block d-lg-none" style="height: 200px"></div>

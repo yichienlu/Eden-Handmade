@@ -43,7 +43,7 @@ const news = ref(articlesStore.articles.splice(0,3))
 const favoriteStore = useFavoriteStore()
 const cartStore = useCartStore()
 
-const isLoading = ref(true)
+let isLoading = ref(true)
 
 
 const goNext = () => {
@@ -65,7 +65,7 @@ onMounted(()=>{
 </script>
 
 <template>
-  <Is-loading :class="{'d-none':!isLoading}"></Is-loading>
+  <IsLoading :class="{'d-none':!isLoading}" />
   <div class="position-relative home-header">
     <swiper
       :loop="true"

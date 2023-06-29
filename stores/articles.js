@@ -5,10 +5,12 @@ export const useArticlesStore = defineStore("articles", () => {
   
   const articles = ref([])
   const pagination = ref({})
+  let currentPage = ref(1)
+  let isLoading = ref(true);
 
 
   const getArticles = async (page=1) => {
-    // isLoading = true
+    isLoading.value = true
     await useFetch(`${config.public.URL}/api/${config.public.PATH}/articles?page=${page}`)
     .then((res)=>{
       if(res.error.value){
@@ -16,19 +18,15 @@ export const useArticlesStore = defineStore("articles", () => {
       } else {
         articles.value = res.data._rawValue.articles
         pagination.value = res.data._rawValue.pagination
+        currentPage.value = page
       }
+
+
     })
 
-    // .then((response) => {
-    //   this.articles = response.data.articles
-    //   this.pagination = response.data.pagination
-    //   this.isLoading = false
-    // }).catch((error) => {
-    //   this.$httpMessageState(error.response, '錯誤訊息')
-    //   this.isLoading = false
-    // })
-
+    isLoading.value = false;
+  
   }
 
-  return { articles, pagination, getArticles }
+  return { articles, pagination, isLoading, getArticles }
 })

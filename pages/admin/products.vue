@@ -9,7 +9,7 @@ let tempProduct = ref({
 })
 const pagination = ref({})
 let currentPage = ref(1)
-let isLoading = ref(false)
+let isLoading = ref(true)
 
 
 const getProducts = async (page=1) => {
@@ -71,7 +71,7 @@ onMounted(()=>{
 </script>
 
 <template>
-<!-- <Loading-component :active="isLoading"></Loading-component> -->
+  <IsLoading :class="{'d-none':!isLoading}"></IsLoading>
   <div class="container my-5">
     <h1 class="text-secondary">商品管理</h1>
     <div class="text-end mt-3">

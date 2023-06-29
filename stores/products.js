@@ -7,7 +7,7 @@ export const useProductsStore = defineStore("products", () => {
   let selectedCategory = ref('')
   const pagination = ref({});
   let currentPage = ref(1)
-  let isLoading = ref(false);
+  let isLoading = ref(true);
 
 
   // 取得商品資料 & 頁數資料
@@ -25,7 +25,8 @@ export const useProductsStore = defineStore("products", () => {
     } else {
       console.log(response.message)
     }
-    isLoading.value = false;
+
+      isLoading.value = false;
 
   }
 

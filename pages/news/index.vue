@@ -11,6 +11,7 @@
 </script>
 
 <template>
+  <IsLoading :class="{'d-none':!articlesStore.isLoading}" />
  <div class="container">
     <div class="row justify-content-around">
       <div class="col-md-4 border img-cover" style="background-image:url('https://images.unsplash.com/photo-1612800083273-24ea5c80313d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1080&q=80')">
