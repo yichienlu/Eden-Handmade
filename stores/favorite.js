@@ -25,6 +25,14 @@ export const useFavoriteStore = defineStore("favorite", () => {
       return true
     }
   }
+  
 
-  return { favorite, getFavorite, toggleFavorite, findFavorite };
+  const clearFavorite = () => {
+    localStorage.removeItem('favorite')
+    console.log('已清除最愛清單')
+    getFavorite()
+
+  }
+
+  return { favorite, getFavorite, toggleFavorite, findFavorite, clearFavorite };
 });

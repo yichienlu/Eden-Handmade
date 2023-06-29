@@ -4,6 +4,7 @@ const cartStore = useCartStore()
 const favoriteStore = useFavoriteStore()
 onMounted(()=>{
   favoriteStore.getFavorite()
+  localStorage.removeItem('favorite')
 })
 
 
@@ -79,6 +80,7 @@ onMounted(()=>{
         </div>
       </template>
     </div>
+    <button class="btn standardBtn" @click="favoriteStore.clearFavorite">全部清除</button>
   </div>
 </template>
 
