@@ -64,13 +64,16 @@ const cartStore = useCartStore()
             </button>
           </div>
           <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col-md-8 mb-3">
               <button class="btn standardBtn w-100" type="button" @click="cartStore.addToCart(product.id, qty)">加到購物車</button>
             </div>
-            <div class="col-md-6 mb-3">
-              <button class="btn btn-outline-primary w-100" type="button" @click="favoriteStore.toggleFavorite(product.id)" >
-                <span v-if="favoriteStore.findFavorite(product.id)">取消收藏</span>
-                <span v-else>加入收藏</span>
+            <div class="col-md-4 mb-3">
+              <button class="btn btn-outline-primary w-100 favoriteBtn" type="button" @click="favoriteStore.toggleFavorite(product.id)" >
+                <span v-if="favoriteStore.findFavorite(product.id)">
+                  <span class="hover-hide"><i class="bi bi-heart-fill text-primary"></i> 已收藏</span>
+                  <span class="hover-show">取消收藏</span>
+                </span>
+                <span v-else><i class="bi bi-heart "></i> 加入收藏</span>
               </button>
             </div>
           </div>
@@ -165,8 +168,21 @@ const cartStore = useCartStore()
   
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .image-box::-webkit-scrollbar {
     display: none;
+}
+.favoriteBtn {
+  .hover-show {
+    display: none
+  }
+  &:hover {
+  .hover-show {
+    display: inline
+  }
+  .hover-hide {
+    display: none
+  }
+  }
 }
 </style>
