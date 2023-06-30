@@ -4,10 +4,7 @@ const cartStore = useCartStore()
 const favoriteStore = useFavoriteStore()
 onMounted(()=>{
   favoriteStore.getFavorite()
-  localStorage.removeItem('favorite')
 })
-
-
 
 let allProducts = ref([])
 let isLoading = ref(true)
@@ -43,7 +40,8 @@ onMounted(()=>{
         去逛逛
       </nuxtLink>
     </div>
-    <div v-else class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gx-4 gy-5">
+    <div v-else>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gx-4 gy-5">
       <template v-for="product in allProducts" :key="product.id">
         <div class="col" v-if="favoriteStore.favorite.includes(product.id)">
           <div class="card border-0 h-100 product-card position-relative">
@@ -79,8 +77,14 @@ onMounted(()=>{
           </div>
         </div>
       </template>
-      <button class="btn standardBtn" @click="favoriteStore.clearFavorite">全部清除</button>
     </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn standardBtn mt-5 ml-auto" @click="favoriteStore.clearFavorite">全部清除</button>
+
+    </div>
+
+    </div>
+
   </div>
 </template>
 
