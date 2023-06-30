@@ -10,7 +10,7 @@
     >
       <i class="bi bi-person translate-middle" style="font-size: 1.5rem"></i>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="navbarDropdown">
       <li v-show="checkAdminStore.loggedIn && checkAdminStore.checkSuccess">
         <nuxtLink to="/admin" class="dropdown-item">後台</nuxtLink>
       </li>
