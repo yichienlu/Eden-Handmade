@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import Swal from 'sweetalert2'
 
 export const  useCartStore = defineStore("cart", () => {
   const config = useRuntimeConfig();
@@ -22,11 +23,7 @@ export const  useCartStore = defineStore("cart", () => {
 
   const addToCart = async (id, qty=1) => {
     if (qty < 1 || qty % 1 !== 0) {
-      // this.emitter.emit('push-message', {
-      //   style: 'success',
-      //   title: '錯誤訊息',
-      //   content: '輸入數量錯誤'
-      // })
+      
       return
     }
     const data = {
@@ -43,6 +40,13 @@ export const  useCartStore = defineStore("cart", () => {
         console.log(res.error.value.data.message)
       } else {
         console.log(res.data.value.message)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: res.data.value.message,
+          showConfirmButton: false,
+          timer: 1500
+        })
         getCart()
       }
     })
