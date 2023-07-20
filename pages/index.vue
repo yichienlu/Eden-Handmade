@@ -89,13 +89,13 @@ onMounted(()=>{
       </swiper-slide>
     </swiper>
     <div class="position-absolute top-50 start-50 translate-middle home-header-link" style=" z-index: 980; min-width:200px">
-      <nuxtLink to="/product" class="d-block p-3 p-lg-5 border text-primary rounded-3 wow animate__animated animate__fadeIn">
+      <nuxtLink to="/product" class="d-block p-3 p-lg-5 border text-primary rounded-3">
       <h1 class="dancing fw-bold text-center">Eden Handmade</h1>
       <h3 class="text-center">聆聽肌膚的渴望</h3>
       </nuxtLink>
     </div>
     <div class="position-absolute bottom-0 start-50 translate-middle-x p-3 " style="z-index: 980">
-      <div class="wow animate__animated animate__bounce rollToBtn">
+      <div class=" rollToBtn">
         <a href="#" class="" @click.prevent="goNext()">
           <i class="bi bi-arrow-down-circle fs-1"></i>
         </a>
@@ -103,50 +103,50 @@ onMounted(()=>{
     </div>
   </div>
   <div class="py-5 text-center bg-secondary position-relative home-banner">
-    <p class="h5 text-light wow animate__animated animate__slideInUp">純手工、純天然</p>
-    <p class="h5 text-light wow animate__animated animate__slideInUp">每一顆手工皂，都飽含Eden真摯的誠意</p>
+    <p class="h5 text-light ">純手工、純天然</p>
+    <p class="h5 text-light ">每一顆手工皂，都飽含Eden真摯的誠意</p>
   </div>
   <div class="my-5 pb-5 container roll-to-target">
     <div class="row text-center">
-      <div class="col img-cover wow animate__animated animate__slideInUp" style="height: 280px; background-image:url('/images/about-01.png');"></div>
+      <div class="col img-cover " style="height: 280px; background-image:url('/images/about-01.png');"></div>
       <div class="col py-4 py-md-5 text-center">
-        <h2 class="dancing wow animate__animated animate__slideInUp">Warmth</h2>
-        <h3 class="text-secondary fw-bold wow animate__animated animate__slideInUp">
+        <h2 class="dancing ">Warmth</h2>
+        <h3 class="text-secondary fw-bold ">
           手作溫度
         </h3>
-        <p class=" wow animate__animated animate__slideInUp">
+        <p class=" ">
           純手工製作，心與心之間的暖流，<br class="d-none d-sm-block">
           是機器無法替代的溫度
         </p>
-        <nuxtLink to="/product" class="btn btn-sm standardBtn wow animate__animated animate__slideInUp">看更多</nuxtLink>
+        <nuxtLink to="/product" class="btn btn-sm standardBtn ">看更多</nuxtLink>
       </div>
     </div>
     <div class="row flex-row-reverse text-center">
-      <div class="col img-cover wow animate__animated animate__slideInUp" style="height: 280px;background-image:url('/images/about-02.png');"></div>
+      <div class="col img-cover " style="height: 280px;background-image:url('/images/about-02.png');"></div>
       <div class="col py-4 py-md-5 text-center">
-        <h2 class="dancing wow animate__animated animate__slideInUp">Natural</h2>
-        <h3 class="text-secondary fw-bold wow animate__animated animate__slideInUp">
+        <h2 class="dancing ">Natural</h2>
+        <h3 class="text-secondary fw-bold ">
           純淨天然
         </h3>
-        <p class=" wow animate__animated animate__slideInUp">
+        <p class=" ">
           選用純天然成份，無添加防腐劑，<br class="d-none d-sm-block">
           給肌膚最純粹、細緻的呵護
         </p>
-         <nuxtLink to="/product" class="btn btn-sm standardBtn wow animate__animated animate__slideInUp">看更多</nuxtLink>
+         <nuxtLink to="/product" class="btn btn-sm standardBtn ">看更多</nuxtLink>
       </div>
     </div>
     <div class="row position-relative text-center">
-      <div class="col img-cover wow animate__animated animate__slideInUp" style="height: 280px;background-image:url('/images/about-03.png');"></div>
+      <div class="col img-cover " style="height: 280px;background-image:url('/images/about-03.png');"></div>
       <div class="col py-4 py-md-5 text-center">
-        <h2 class="dancing wow animate__animated animate__slideInUp">Organic</h2>
-        <h3 class="text-secondary fw-bold wow animate__animated animate__slideInUp">
+        <h2 class="dancing ">Organic</h2>
+        <h3 class="text-secondary fw-bold ">
           有機環保
         </h3>
-        <p class=" wow animate__animated animate__slideInUp">
+        <p class=" ">
           有機成分 100% 可被水分解，<br class="d-none d-sm-block">
           不會對水源及環境造成傷害
         </p>
-         <nuxtLink to="/product" class="btn btn-sm standardBtn wow animate__animated animate__slideInUp">看更多</nuxtLink>
+         <nuxtLink to="/product" class="btn btn-sm standardBtn ">看更多</nuxtLink>
       </div>
     </div>
   </div>
