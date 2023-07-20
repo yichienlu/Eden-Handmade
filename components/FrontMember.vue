@@ -46,7 +46,7 @@ const logOut = () => {
   console.log("已登出");
 
   window.location.href = "/";
-  // router.go(-1)
+
 };
 
 onMounted(()=>{

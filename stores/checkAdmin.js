@@ -18,7 +18,7 @@ export const useCheckAdminStore = defineStore("checkAdmin", () => {
         headers: { Authorization: token },
       }).then((res) => {
         if (res.error.value) {
-          console.log(res.error);
+          // console.log(res.error);
           // console.log(res.error.value.data.message);
           loggedIn.value = false;
         } else {

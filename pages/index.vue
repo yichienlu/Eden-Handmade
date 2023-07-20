@@ -59,8 +59,6 @@ onMounted(()=>{
     isLoading.value = false
   }, 1000)
 
-  console.log(checkAdminStore.loggedIn)
-  console.log(checkAdminStore.checkSuccess)
 })
 </script>
 
